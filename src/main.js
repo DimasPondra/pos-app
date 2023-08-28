@@ -27,12 +27,16 @@ import "@ionic/vue/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+import MenuAdmin from "./components/menu/MenuAdmin.vue";
+
 const app = createApp(App);
 const pinia = createPinia();
 
 app.use(IonicVue);
 app.use(router);
 app.use(pinia);
+
+app.component("menu-admin", MenuAdmin);
 
 router.isReady().then(() => {
     app.mount("#app");

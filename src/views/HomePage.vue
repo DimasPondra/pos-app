@@ -1,25 +1,18 @@
 <template>
-    <ion-page>
-        <ion-content>
-            <ion-button @click="handleLogout">logout</ion-button>
-        </ion-content>
+    <ion-page id="admin-main-content">
+        <LayoutAdmin title_page="Home">
+            <h1>Homepage</h1>
+            <ion-button router-link="/">Home</ion-button>
+            <ion-button router-link="/product-type">Product Type</ion-button>
+        </LayoutAdmin>
     </ion-page>
 </template>
 
 <script>
-import { IonPage, IonContent, IonButton } from "@ionic/vue";
-import { useAuthStore } from "../stores/auth";
+import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
+import { IonPage, IonButton } from "@ionic/vue";
 
 export default {
-    components: { IonPage, IonContent, IonButton },
-    setup() {
-        const authStore = useAuthStore();
-
-        const handleLogout = async () => {
-            await authStore.logout();
-        };
-
-        return { handleLogout };
-    },
+    components: { LayoutAdmin, IonPage, IonButton },
 };
 </script>

@@ -26,6 +26,14 @@ const routes = [
             middleware: [GuestMiddleware],
         },
     },
+    {
+        path: "/product-type",
+        name: "Product-Type",
+        component: () => import("../views/ProductType.vue"),
+        meta: {
+            middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
 ];
 
 const router = createRouter({

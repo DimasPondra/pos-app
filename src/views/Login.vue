@@ -1,5 +1,5 @@
 <template>
-    <ion-page>
+    <ion-page id="login-page">
         <ion-content>
             <ion-card>
                 <ion-card-header>
