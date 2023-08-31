@@ -12,6 +12,8 @@
                 :product_types="productTypeStore.data.product_types"
                 @handleEdit="handleEdit"
                 @handleDelete="handleDelete"
+                :total="productTypeStore.data.infinite_set.total"
+                @handleLoadMore="handleLoadMore"
             />
         </LayoutAdmin>
     </ion-page>
@@ -22,7 +24,7 @@ import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
 import { IonPage, IonButton } from "@ionic/vue";
 import ListProductType from "../components/list/ListProductType.vue";
 import ModalProductType from "../components/modal/ModalProductType.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useProductTypeStore } from "../stores/product_types";
 
 export default {
@@ -31,8 +33,17 @@ export default {
         const productTypeStore = useProductTypeStore();
         const isModalOpen = ref(false);
 
-        const loadProductTypes = async () => {
-            await productTypeStore.get();
+        const params = computed(() => {
+            return {
+                page: productTypeStore.data.infinite_set.page,
+                per_page: productTypeStore.data.infinite_set.per_page,
+            };
+        });
+
+        const loadProductTypes = async (value) => {
+            params.value.page = value != null ? value : params.value.page;
+
+            await productTypeStore.get(params.value);
         };
 
         onMounted(() => {
@@ -46,7 +57,7 @@ export default {
         const closeModal = () => {
             isModalOpen.value = false;
 
-            loadProductTypes();
+            loadProductTypes(0);
         };
 
         const handleEdit = async (id) => {
@@ -58,10 +69,17 @@ export default {
         const handleDelete = async (id) => {
             await productTypeStore.deleteItem(id);
 
-            loadProductTypes();
+            loadProductTypes(0);
         };
 
-        return { productTypeStore, isModalOpen, openModal, closeModal, handleEdit, handleDelete };
+        const handleLoadMore = async () => {
+            const loadPage = productTypeStore.data.infinite_set.page + 1;
+            params.value.page = loadPage;
+
+            await productTypeStore.get(params.value, true);
+        };
+
+        return { productTypeStore, isModalOpen, openModal, closeModal, handleEdit, handleDelete, handleLoadMore };
     },
 };
 </script>

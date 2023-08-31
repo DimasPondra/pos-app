@@ -10,21 +10,37 @@ export const useProductTypeStore = defineStore("product_type", () => {
             id: null,
             name: "",
         },
+        infinite_set: {
+            page: 1,
+            per_page: 5,
+            total: 0,
+        },
     });
 
     const authStore = useAuthStore();
 
-    const get = async () => {
+    const get = async (params, load = false) => {
         clear();
 
         try {
             const res = await axios.get("admin/product-types", {
+                params: params,
                 headers: {
                     Authorization: authStore.token,
                 },
             });
 
-            data.product_types = res.data.data;
+            if (load) {
+                data.product_types = data.product_types.concat(res.data.data);
+            } else {
+                data.product_types = res.data.data;
+            }
+
+            if (res.data.meta != null) {
+                data.infinite_set.page = res.data.meta.current_page;
+                data.infinite_set.per_page = res.data.meta.per_page;
+                data.infinite_set.total = res.data.meta.total;
+            }
         } catch (error) {
             console.log(error);
         }

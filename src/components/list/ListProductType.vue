@@ -14,21 +14,56 @@
                 <ion-item-option @click="handleDelete(product_type.id)" color="danger">Delete</ion-item-option>
             </ion-item-options>
         </ion-item-sliding>
+
+        <ion-button v-show="product_types.length < total" @click="handleLoadMore">load more</ion-button>
+
+        <ion-label>{{ totalItems }}</ion-label>
     </ion-list>
 </template>
 
 <script>
-import { IonItem, IonLabel, IonList, IonListHeader, IonItemSliding, IonItemOptions, IonItemOption } from "@ionic/vue";
+import {
+    IonItem,
+    IonLabel,
+    IonList,
+    IonListHeader,
+    IonItemSliding,
+    IonItemOptions,
+    IonItemOption,
+    IonButton,
+} from "@ionic/vue";
+import { computed } from "vue";
 
 export default {
-    components: { IonItem, IonLabel, IonList, IonListHeader, IonItemSliding, IonItemOptions, IonItemOption },
+    components: {
+        IonItem,
+        IonLabel,
+        IonList,
+        IonListHeader,
+        IonItemSliding,
+        IonItemOptions,
+        IonItemOption,
+        IonButton,
+    },
     props: {
         product_types: {
             type: Array,
             default: [],
         },
+        total: {
+            type: Number,
+            default: "",
+        },
     },
     setup(props, context) {
+        const totalItems = computed(() => {
+            return props.product_types.length + " of " + props.total;
+        });
+
+        const handleLoadMore = () => {
+            context.emit("handleLoadMore");
+        };
+
         const handleEdit = (id) => {
             context.emit("handleEdit", id);
         };
@@ -37,7 +72,7 @@ export default {
             context.emit("handleDelete", id);
         };
 
-        return { handleEdit, handleDelete };
+        return { totalItems, handleLoadMore, handleEdit, handleDelete };
     },
 };
 </script>
