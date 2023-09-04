@@ -1,0 +1,43 @@
+<template>
+    <ion-page id="admin-main-content">
+        <LayoutAdmin title_page="">
+            <ion-card router-link="/">
+                <ion-card-content>Home</ion-card-content>
+            </ion-card>
+            <ion-card router-link="/product-type">
+                <ion-card-content>Product Type</ion-card-content>
+            </ion-card>
+            <ion-card @click="handleLogout">
+                <ion-card-content>Logout</ion-card-content>
+            </ion-card>
+        </LayoutAdmin>
+    </ion-page>
+</template>
+
+<script>
+import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
+import { IonPage, IonButton, IonCard, IonCardContent, IonList, IonItem, IonLabel } from "@ionic/vue";
+import { useAuthStore } from "../stores/auth";
+
+export default {
+    components: {
+        LayoutAdmin,
+        IonPage,
+        IonButton,
+        IonCard,
+        IonCardContent,
+        IonList,
+        IonItem,
+        IonLabel,
+    },
+    setup() {
+        const authStore = useAuthStore();
+
+        const handleLogout = async () => {
+            await authStore.logout();
+        };
+
+        return { handleLogout };
+    },
+};
+</script>

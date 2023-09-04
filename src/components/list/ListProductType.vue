@@ -1,9 +1,5 @@
 <template>
     <ion-list>
-        <ion-list-header>
-            <ion-label>Product Types</ion-label>
-        </ion-list-header>
-
         <ion-item-sliding v-for="product_type in product_types" :key="product_type.id">
             <ion-item>
                 <ion-label>{{ product_type.name }}</ion-label>
@@ -14,24 +10,23 @@
                 <ion-item-option @click="handleDelete(product_type.id)" color="danger">Delete</ion-item-option>
             </ion-item-options>
         </ion-item-sliding>
-
-        <ion-button v-show="product_types.length < total" @click="handleLoadMore">load more</ion-button>
-
-        <ion-label>{{ totalItems }}</ion-label>
     </ion-list>
+
+    <div class="centered-container">
+        <ion-button
+            shape="round"
+            fill="outline"
+            size="small"
+            v-show="product_types.length < total"
+            @click="handleLoadMore"
+            >load more</ion-button
+        >
+    </div>
+    <ion-label>{{ totalItems }}</ion-label>
 </template>
 
 <script>
-import {
-    IonItem,
-    IonLabel,
-    IonList,
-    IonListHeader,
-    IonItemSliding,
-    IonItemOptions,
-    IonItemOption,
-    IonButton,
-} from "@ionic/vue";
+import { IonItem, IonLabel, IonList, IonItemSliding, IonItemOptions, IonItemOption, IonButton } from "@ionic/vue";
 import { computed } from "vue";
 
 export default {
@@ -39,7 +34,6 @@ export default {
         IonItem,
         IonLabel,
         IonList,
-        IonListHeader,
         IonItemSliding,
         IonItemOptions,
         IonItemOption,
@@ -55,6 +49,7 @@ export default {
             default: "",
         },
     },
+    emits: ["handleLoadMore", "handleEdit", "handleDelete"],
     setup(props, context) {
         const totalItems = computed(() => {
             return props.product_types.length + " of " + props.total;
@@ -76,3 +71,11 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>

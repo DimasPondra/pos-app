@@ -1,12 +1,10 @@
 <template>
     <ion-page id="admin-main-content">
         <LayoutAdmin title_page="Product Type">
-            <h1>Product Type</h1>
-            <ion-button router-link="/">Home</ion-button>
-            <ion-button router-link="/product-type">Product Type</ion-button>
-
-            <ion-button @click="openModal">Open Modal</ion-button>
+            <ion-button size="small" fill="outline" @click="openModal"> add new </ion-button>
             <ModalProductType :is-open="isModalOpen" @ionModalDidDismiss="closeModal" />
+
+            <FilterProductType :filter="filter" />
 
             <ListProductType
                 :product_types="productTypeStore.data.product_types"
@@ -21,24 +19,45 @@
 
 <script>
 import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
-import { IonPage, IonButton } from "@ionic/vue";
+import { IonPage, IonButton, IonInput } from "@ionic/vue";
 import ListProductType from "../components/list/ListProductType.vue";
 import ModalProductType from "../components/modal/ModalProductType.vue";
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, reactive, watch } from "vue";
 import { useProductTypeStore } from "../stores/product_types";
+import FilterProductType from "../components/filter/FilterProductType.vue";
 
 export default {
-    components: { LayoutAdmin, IonPage, IonButton, ListProductType, ModalProductType },
+    components: {
+        LayoutAdmin,
+        IonPage,
+        IonButton,
+        IonInput,
+        ListProductType,
+        ModalProductType,
+        FilterProductType,
+    },
     setup() {
         const productTypeStore = useProductTypeStore();
         const isModalOpen = ref(false);
 
+        const filter = reactive({
+            name: "",
+        });
+
         const params = computed(() => {
             return {
+                name: filter.name,
                 page: productTypeStore.data.infinite_set.page,
                 per_page: productTypeStore.data.infinite_set.per_page,
             };
         });
+
+        watch(
+            () => filter.name,
+            () => {
+                loadProductTypes(1);
+            }
+        );
 
         const loadProductTypes = async (value) => {
             params.value.page = value != null ? value : params.value.page;
@@ -57,7 +76,7 @@ export default {
         const closeModal = () => {
             isModalOpen.value = false;
 
-            loadProductTypes(0);
+            loadProductTypes(1);
         };
 
         const handleEdit = async (id) => {
@@ -69,7 +88,7 @@ export default {
         const handleDelete = async (id) => {
             await productTypeStore.deleteItem(id);
 
-            loadProductTypes(0);
+            loadProductTypes(1);
         };
 
         const handleLoadMore = async () => {
@@ -79,7 +98,16 @@ export default {
             await productTypeStore.get(params.value, true);
         };
 
-        return { productTypeStore, isModalOpen, openModal, closeModal, handleEdit, handleDelete, handleLoadMore };
+        return {
+            productTypeStore,
+            filter,
+            isModalOpen,
+            openModal,
+            closeModal,
+            handleEdit,
+            handleDelete,
+            handleLoadMore,
+        };
     },
 };
 </script>

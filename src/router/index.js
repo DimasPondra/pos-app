@@ -27,6 +27,14 @@ const routes = [
         },
     },
     {
+        path: "/setting",
+        name: "Setting",
+        component: () => import("../views/Setting.vue"),
+        meta: {
+            middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
+    {
         path: "/product-type",
         name: "Product-Type",
         component: () => import("../views/ProductType.vue"),
