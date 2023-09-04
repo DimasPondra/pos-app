@@ -42,6 +42,14 @@ const routes = [
             middleware: [AuthMiddleware, AdminMiddleware],
         },
     },
+    {
+        path: "/role",
+        name: "Role",
+        component: () => import("../views/Role.vue"),
+        meta: {
+            middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
 ];
 
 const router = createRouter({

@@ -18,13 +18,14 @@
 </template>
 
 <script>
-import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
 import { IonPage, IonButton, IonInput } from "@ionic/vue";
-import ListProductType from "../components/list/ListProductType.vue";
-import ModalProductType from "../components/modal/ModalProductType.vue";
-import { onMounted, ref, computed, reactive, watch } from "vue";
 import { useProductTypeStore } from "../stores/product_types";
+import { onMounted, ref, computed, reactive, watch } from "vue";
+
+import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
+import ListProductType from "../components/list/ListProductType.vue";
 import FilterProductType from "../components/filter/FilterProductType.vue";
+import ModalProductType from "../components/modal/ModalProductType.vue";
 
 export default {
     components: {
