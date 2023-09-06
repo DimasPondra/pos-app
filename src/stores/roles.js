@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { useAuthStore } from "./auth";
 import { reactive } from "vue";
 import axios from "axios";
+import { useAlertStore } from "./alerts";
 
 export const useRoleStore = defineStore("role", () => {
     const data = reactive({
@@ -18,6 +19,7 @@ export const useRoleStore = defineStore("role", () => {
     });
 
     const authStore = useAuthStore();
+    const alertStore = useAlertStore();
 
     const get = async (params, load = false) => {
         clear();
@@ -42,7 +44,7 @@ export const useRoleStore = defineStore("role", () => {
                 data.infinite_set.total = res.data.meta.total;
             }
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
@@ -58,7 +60,7 @@ export const useRoleStore = defineStore("role", () => {
 
             data.role = res.data.data;
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
@@ -71,7 +73,7 @@ export const useRoleStore = defineStore("role", () => {
                     },
                 });
 
-                console.log("successfully created.");
+                alertStore.handleSuccess("successfully created.");
             } else {
                 await axios.patch(`admin/roles/${id}/update`, value, {
                     headers: {
@@ -79,12 +81,12 @@ export const useRoleStore = defineStore("role", () => {
                     },
                 });
 
-                console.log("successfully updated.");
+                alertStore.handleSuccess("successfully updated.");
             }
 
             clear();
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
@@ -96,9 +98,9 @@ export const useRoleStore = defineStore("role", () => {
                 },
             });
 
-            console.log("successfully deleted.");
+            alertStore.handleSuccess("successfully deleted.");
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 

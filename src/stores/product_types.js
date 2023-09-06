@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { reactive } from "vue";
 import { useAuthStore } from "./auth";
 import axios from "axios";
+import { useAlertStore } from "./alerts";
 
 export const useProductTypeStore = defineStore("product_type", () => {
     const data = reactive({
@@ -18,6 +19,7 @@ export const useProductTypeStore = defineStore("product_type", () => {
     });
 
     const authStore = useAuthStore();
+    const alertStore = useAlertStore();
 
     const get = async (params, load = false) => {
         clear();
@@ -42,7 +44,7 @@ export const useProductTypeStore = defineStore("product_type", () => {
                 data.infinite_set.total = res.data.meta.total;
             }
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
@@ -58,7 +60,7 @@ export const useProductTypeStore = defineStore("product_type", () => {
 
             data.product_type = res.data.data;
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
@@ -71,7 +73,7 @@ export const useProductTypeStore = defineStore("product_type", () => {
                     },
                 });
 
-                console.log("successfully created.");
+                alertStore.handleSuccess("successfully created.");
             } else {
                 await axios.patch(`admin/product-types/${id}/update`, value, {
                     headers: {
@@ -79,12 +81,12 @@ export const useProductTypeStore = defineStore("product_type", () => {
                     },
                 });
 
-                console.log("successfully updated.");
+                alertStore.handleSuccess("successfully updated.");
             }
 
             clear();
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
@@ -96,9 +98,9 @@ export const useProductTypeStore = defineStore("product_type", () => {
                 },
             });
 
-            console.log("successfully deleted.");
+            alertStore.handleSuccess("successfully deleted.");
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 

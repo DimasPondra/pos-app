@@ -3,10 +3,13 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import router from "../router";
 import { Preferences } from "@capacitor/preferences";
+import { useAlertStore } from "./alerts";
 
 export const useAuthStore = defineStore("auth", () => {
     let token = ref(null);
     let ability = ref(null);
+
+    const alertStore = useAlertStore();
 
     const login = async (user) => {
         try {
@@ -22,7 +25,7 @@ export const useAuthStore = defineStore("auth", () => {
                 router.push("/");
             }
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
@@ -40,7 +43,7 @@ export const useAuthStore = defineStore("auth", () => {
             $reset();
             router.push("login");
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 

@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { reactive } from "vue";
 import { useAuthStore } from "./auth";
 import axios from "axios";
+import { useAlertStore } from "./alerts";
 
 export const useUserStore = defineStore("user", () => {
     const data = reactive({
@@ -20,6 +21,7 @@ export const useUserStore = defineStore("user", () => {
     });
 
     const authStore = useAuthStore();
+    const alertStore = useAlertStore();
 
     const get = async (params, load = false) => {
         clear();
@@ -44,7 +46,7 @@ export const useUserStore = defineStore("user", () => {
                 data.infinite_set.total = res.data.meta.total;
             }
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
@@ -60,7 +62,7 @@ export const useUserStore = defineStore("user", () => {
 
             data.user = res.data.data;
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
@@ -73,7 +75,7 @@ export const useUserStore = defineStore("user", () => {
                     },
                 });
 
-                console.log("successfully created.");
+                alertStore.handleSuccess("successfully created.");
             } else {
                 await axios.patch(`admin/users/${id}/update`, value, {
                     headers: {
@@ -81,12 +83,12 @@ export const useUserStore = defineStore("user", () => {
                     },
                 });
 
-                console.log("successfully updated.");
+                alertStore.handleSuccess("successfully updated.");
             }
 
             clear();
         } catch (error) {
-            console.log(error);
+            alertStore.handleError(error);
         }
     };
 
