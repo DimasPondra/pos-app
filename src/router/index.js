@@ -50,6 +50,14 @@ const routes = [
             middleware: [AuthMiddleware, AdminMiddleware],
         },
     },
+    {
+        path: "/user",
+        name: "User",
+        component: () => import("../views/User.vue"),
+        meta: {
+            middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
 ];
 
 const router = createRouter({
