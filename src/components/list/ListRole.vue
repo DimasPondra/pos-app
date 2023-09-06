@@ -1,27 +1,48 @@
 <template>
-    <ion-list>
-        <ion-item-sliding v-for="role in roles" :key="role.id">
-            <ion-item>
-                <ion-label>{{ role.name }}</ion-label>
-            </ion-item>
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
+                <ion-item-sliding v-for="role in roles" :key="role.id">
+                    <ion-item>
+                        <ion-label>{{ role.name }}</ion-label>
+                    </ion-item>
 
-            <ion-item-options>
-                <ion-item-option @click="handleEdit(role.id)">Edit</ion-item-option>
-                <ion-item-option @click="handleDelete(role.id)" color="danger">Delete</ion-item-option>
-            </ion-item-options>
-        </ion-item-sliding>
-    </ion-list>
+                    <ion-item-options>
+                        <ion-item-option @click="handleEdit(role.id)">Edit</ion-item-option>
+                        <ion-item-option @click="handleDelete(role.id)" color="danger">Delete</ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
 
-    <div class="centered-container">
-        <ion-button shape="round" fill="outline" size="small" v-show="roles.length < total" @click="handleLoadMore"
-            >load more</ion-button
-        >
-    </div>
-    <ion-label>{{ totalItems }}</ion-label>
+            <div class="centered-container">
+                <ion-button
+                    shape="round"
+                    fill="outline"
+                    size="small"
+                    v-show="roles.length < total"
+                    @click="handleLoadMore"
+                    >load more</ion-button
+                >
+            </div>
+            <div class="text-center">
+                <ion-label>{{ totalItems }}</ion-label>
+            </div>
+        </ion-card-content>
+    </ion-card>
 </template>
 
 <script>
-import { IonItem, IonLabel, IonList, IonItemSliding, IonItemOptions, IonItemOption, IonButton } from "@ionic/vue";
+import {
+    IonItem,
+    IonLabel,
+    IonList,
+    IonItemSliding,
+    IonItemOptions,
+    IonItemOption,
+    IonButton,
+    IonCard,
+    IonCardContent,
+} from "@ionic/vue";
 import { computed } from "vue";
 
 export default {
@@ -33,6 +54,8 @@ export default {
         IonItemOptions,
         IonItemOption,
         IonButton,
+        IonCard,
+        IonCardContent,
     },
     props: {
         roles: {
@@ -66,11 +89,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-.centered-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-</style>

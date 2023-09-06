@@ -3,19 +3,34 @@
         <ion-content>
             <ion-card>
                 <ion-card-header>
-                    <ion-card-title> Card Title </ion-card-title>
-                    <ion-card-subtitle> Card Subtitle </ion-card-subtitle>
+                    <div class="text-center">
+                        <ion-card-title> POS APP </ion-card-title>
+                    </div>
                 </ion-card-header>
 
                 <ion-card-content>
-                    <ion-input label="Username :" placeholder="Your email" v-model="credential.username"></ion-input>
-                    <ion-input
-                        label="Password :"
-                        type="password"
-                        placeholder="Your password"
-                        v-model="credential.password"
-                    ></ion-input>
-                    <ion-button @click="handleSubmit">Login</ion-button>
+                    <div class="input-group">
+                        <ion-input
+                            label="Username"
+                            label-placement="floating"
+                            placeholder="Your username"
+                            v-model="credential.username"
+                        ></ion-input>
+                    </div>
+
+                    <div class="input-group">
+                        <ion-input
+                            label="Password"
+                            label-placement="floating"
+                            type="password"
+                            placeholder="Your password"
+                            v-model="credential.password"
+                        ></ion-input>
+                    </div>
+
+                    <div class="button-form">
+                        <ion-button size="small" expand="block" @click="handleSubmit">Login</ion-button>
+                    </div>
                 </ion-card-content>
             </ion-card>
         </ion-content>
@@ -29,7 +44,6 @@ import {
     IonCard,
     IonCardHeader,
     IonCardTitle,
-    IonCardSubtitle,
     IonCardContent,
     IonInput,
     IonButton,
@@ -44,7 +58,6 @@ export default {
         IonCard,
         IonCardHeader,
         IonCardTitle,
-        IonCardSubtitle,
         IonCardContent,
         IonInput,
         IonButton,

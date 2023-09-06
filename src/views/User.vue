@@ -3,7 +3,9 @@
         <LayoutAdmin title_page="User">
             <FilterUser :filter="filter" :roles="roleStore.data.roles" @clearFilter="clearFilter" />
 
-            <ion-button size="small" fill="outline" expand="block" @click="openModal">add new</ion-button>
+            <div class="add-button">
+                <ion-button size="small" fill="outline" expand="block" @click="openModal">add new</ion-button>
+            </div>
             <ModalUser :is-open="isModalOpen" @ionModalDidDismiss="closeModal" :roles="roleStore.data.roles" />
 
             <ListUser

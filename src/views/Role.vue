@@ -1,10 +1,12 @@
 <template>
     <ion-page id="admin-main-content">
         <LayoutAdmin title_page="Role">
-            <ion-button size="small" fill="outline" @click="openModal"> add new </ion-button>
-            <ModalRole :is-open="isModalOpen" @ionModalDidDismiss="closeModal" />
+            <FilterRole :filter="filter" @clearFilter="clearFilter" />
 
-            <FilterRole :filter="filter" />
+            <div class="add-button">
+                <ion-button size="small" fill="outline" expand="block" @click="openModal"> add new </ion-button>
+            </div>
+            <ModalRole :is-open="isModalOpen" @ionModalDidDismiss="closeModal" />
 
             <ListRole
                 :roles="roleStore.data.roles"
@@ -90,7 +92,21 @@ export default {
             await roleStore.get(params.value, true);
         };
 
-        return { roleStore, filter, isModalOpen, openModal, closeModal, handleEdit, handleDelete, handleLoadMore };
+        const clearFilter = () => {
+            filter.name = "";
+        };
+
+        return {
+            roleStore,
+            filter,
+            isModalOpen,
+            openModal,
+            closeModal,
+            handleEdit,
+            handleDelete,
+            handleLoadMore,
+            clearFilter,
+        };
     },
 };
 </script>

@@ -1,0 +1,38 @@
+/* View Page */
+.add-button {
+  padding: 0px 10px;
+}
+
+/* Modal */
+.input-group {
+  padding-bottom: 5px;
+}
+
+.button-form {
+  padding-top: 10px;
+}
+
+/* List  */
+.centered-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 10px;
+}
+
+.text-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 10px;
+}
+/*# sourceMappingURL=main.css.map */

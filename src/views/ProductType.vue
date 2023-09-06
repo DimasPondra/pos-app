@@ -1,10 +1,12 @@
 <template>
     <ion-page id="admin-main-content">
         <LayoutAdmin title_page="Product Type">
-            <ion-button size="small" fill="outline" @click="openModal"> add new </ion-button>
-            <ModalProductType :is-open="isModalOpen" @ionModalDidDismiss="closeModal" />
+            <FilterProductType :filter="filter" @clearFilter="clearFilter" />
 
-            <FilterProductType :filter="filter" />
+            <div class="add-button">
+                <ion-button size="small" fill="outline" expand="block" @click="openModal"> add new </ion-button>
+            </div>
+            <ModalProductType :is-open="isModalOpen" @ionModalDidDismiss="closeModal" />
 
             <ListProductType
                 :product_types="productTypeStore.data.product_types"
@@ -99,6 +101,10 @@ export default {
             await productTypeStore.get(params.value, true);
         };
 
+        const clearFilter = () => {
+            filter.name = "";
+        };
+
         return {
             productTypeStore,
             filter,
@@ -108,6 +114,7 @@ export default {
             handleEdit,
             handleDelete,
             handleLoadMore,
+            clearFilter,
         };
     },
 };

@@ -10,35 +10,47 @@
             </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-            <ion-input
-                v-show="userStore.data.user.id == null"
-                label="Username"
-                label-placement="stacked"
-                placeholder="Enter username"
-                v-model="userStore.data.user.username"
-            ></ion-input>
+            <ion-card>
+                <ion-card-content>
+                    <div class="input-group">
+                        <ion-input
+                            v-show="userStore.data.user.id == null"
+                            label="Username"
+                            label-placement="floating"
+                            placeholder="Enter username"
+                            v-model="userStore.data.user.username"
+                        ></ion-input>
+                    </div>
 
-            <ion-input
-                label="Password"
-                label-placement="stacked"
-                placeholder="Enter password"
-                v-model="userStore.data.user.password"
-                type="password"
-            ></ion-input>
+                    <div class="input-group">
+                        <ion-input
+                            label="Password"
+                            label-placement="floating"
+                            placeholder="Enter password"
+                            v-model="userStore.data.user.password"
+                            type="password"
+                        ></ion-input>
+                    </div>
 
-            <ion-select
-                v-show="userStore.data.user.id == null"
-                label="Role"
-                label-placement="stacked"
-                placeholder="Select a Role"
-                v-model="userStore.data.user.role_id"
-            >
-                <ion-select-option v-for="role in roles" :key="role.id" :value="role.id">{{
-                    role.name
-                }}</ion-select-option>
-            </ion-select>
+                    <div class="input-group">
+                        <ion-select
+                            v-show="userStore.data.user.id == null"
+                            label="Role"
+                            label-placement="floating"
+                            placeholder="Select a Role"
+                            v-model="userStore.data.user.role_id"
+                        >
+                            <ion-select-option v-for="role in roles" :key="role.id" :value="role.id">{{
+                                role.name
+                            }}</ion-select-option>
+                        </ion-select>
+                    </div>
 
-            <ion-button @click="handleSubmit">Save</ion-button>
+                    <div class="button-form">
+                        <ion-button size="small" expand="block" @click="handleSubmit">Save</ion-button>
+                    </div>
+                </ion-card-content>
+            </ion-card>
         </ion-content>
     </ion-modal>
 </template>
@@ -55,6 +67,8 @@ import {
     IonInput,
     IonSelect,
     IonSelectOption,
+    IonCard,
+    IonCardContent,
 } from "@ionic/vue";
 import { useUserStore } from "../../stores/users";
 
@@ -70,6 +84,8 @@ export default {
         IonInput,
         IonSelect,
         IonSelectOption,
+        IonCard,
+        IonCardContent,
     },
     props: {
         isOpen: Boolean,

@@ -10,24 +10,54 @@
             </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-            <ion-input
-                label="Name"
-                label-placement="stacked"
-                placeholder="Enter name"
-                v-model="roleStore.data.role.name"
-            ></ion-input>
+            <ion-card>
+                <ion-card-content>
+                    <div class="input-group">
+                        <ion-input
+                            label="Name"
+                            label-placement="floating"
+                            placeholder="Enter name"
+                            v-model="roleStore.data.role.name"
+                        ></ion-input>
+                    </div>
 
-            <ion-button @click="handleSubmit">Save</ion-button>
+                    <div class="button-form">
+                        <ion-button size="small" expand="block" @click="handleSubmit">Save</ion-button>
+                    </div>
+                </ion-card-content>
+            </ion-card>
         </ion-content>
     </ion-modal>
 </template>
 
 <script>
-import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar, IonInput } from "@ionic/vue";
+import {
+    IonButton,
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonModal,
+    IonTitle,
+    IonToolbar,
+    IonInput,
+    IonCard,
+    IonCardContent,
+} from "@ionic/vue";
 import { useRoleStore } from "../../stores/roles";
 
 export default {
-    components: { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar, IonInput },
+    components: {
+        IonButton,
+        IonButtons,
+        IonContent,
+        IonHeader,
+        IonModal,
+        IonTitle,
+        IonToolbar,
+        IonInput,
+        IonCard,
+        IonCardContent,
+    },
     props: {
         isOpen: Boolean,
     },

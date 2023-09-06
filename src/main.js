@@ -27,6 +27,9 @@ import "@ionic/vue/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+/** Custom CSS */
+import "./assets/css/main.css";
+
 import MenuAdmin from "./components/menu/MenuAdmin.vue";
 
 const app = createApp(App);
