@@ -43,6 +43,7 @@ export default {
 
         const params = computed(() => {
             return {
+                include: "role,file",
                 username: filter.username,
                 role_id: filter.role_id,
                 page: userStore.data.infinite_set.page,
@@ -84,7 +85,7 @@ export default {
         };
 
         const handleEdit = async (id) => {
-            await userStore.show(id);
+            await userStore.show(id, params.value);
 
             openModal();
         };

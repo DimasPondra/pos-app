@@ -12,6 +12,9 @@ export const useUserStore = defineStore("user", () => {
             username: "",
             password: "",
             role_id: null,
+            role: {},
+            file_id: null,
+            file: {},
         },
         infinite_set: {
             page: 1,
@@ -50,17 +53,20 @@ export const useUserStore = defineStore("user", () => {
         }
     };
 
-    const show = async (id) => {
+    const show = async (id, params) => {
         clear();
 
         try {
             const res = await axios.get(`admin/users/${id}/show`, {
+                params: params,
                 headers: {
                     Authorization: authStore.token,
                 },
             });
 
             data.user = res.data.data;
+            data.user.role_id = res.data.data.role.id;
+            data.user.file_id = res.data.data.file == null ? null : res.data.data.file.id;
         } catch (error) {
             alertStore.handleError(error);
         }
@@ -97,6 +103,9 @@ export const useUserStore = defineStore("user", () => {
         data.user.username = "";
         data.user.password = "";
         data.user.role_id = null;
+        data.user.role = {};
+        data.user.file_id = null;
+        data.user.file = {};
     };
 
     return { data, get, show, save };

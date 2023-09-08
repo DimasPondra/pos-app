@@ -86,4 +86,9 @@
   z-index: 1;
   pointer-events: none;
 }
+
+/* Thumbnail */
+.thumbnail {
+  margin-bottom: 10px;
+}
 /*# sourceMappingURL=main.css.map */

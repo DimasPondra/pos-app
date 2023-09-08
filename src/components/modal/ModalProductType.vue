@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="button-form">
-                        <ion-button size="small" expand="block" @click="handleSubmit">Save</ion-button>
+                        <ion-button size="small" expand="block" color="success" @click="handleSubmit">Save</ion-button>
                     </div>
                 </ion-card-content>
             </ion-card>

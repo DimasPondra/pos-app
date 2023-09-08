@@ -70,6 +70,7 @@ export const useProductStore = defineStore("product", () => {
             });
 
             data.product = res.data.data;
+            data.product.price = parseInt(res.data.data.price);
             data.product.product_type_id = res.data.data.product_type.id;
             data.product.file_id = res.data.data.file == null ? null : res.data.data.file.id;
         } catch (error) {

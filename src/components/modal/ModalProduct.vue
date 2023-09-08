@@ -22,12 +22,12 @@
                     </div>
 
                     <div class="input-group">
-                        <ion-input
+                        <ion-textarea
                             label="Description"
                             label-placement="floating"
                             placeholder="Enter description"
                             v-model="productStore.data.product.description"
-                        ></ion-input>
+                        ></ion-textarea>
                     </div>
 
                     <div class="input-group">
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="input-group">
-                        <div class="thumbnail" v-if="productStore.data.product.file != null">
+                        <div class="thumbnail" v-if="productStore.data.product.file_id != null">
                             <ion-thumbnail>
                                 <img :src="productStore.data.product.file.url" alt="Image product." />
                             </ion-thumbnail>
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="button-form">
-                        <ion-button size="small" expand="block" @click="handleSubmit">Save</ion-button>
+                        <ion-button size="small" expand="block" color="success" @click="handleSubmit">Save</ion-button>
                     </div>
                 </ion-card-content>
             </ion-card>
@@ -105,6 +105,7 @@ import {
     IonCard,
     IonCardContent,
     IonThumbnail,
+    IonTextarea,
 } from "@ionic/vue";
 import { useProductStore } from "../../stores/products";
 import { useFileStore } from "../../stores/files";
@@ -124,6 +125,7 @@ export default {
         IonCard,
         IonCardContent,
         IonThumbnail,
+        IonTextarea,
     },
     props: {
         isOpen: Boolean,
@@ -165,9 +167,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-.thumbnail {
-    margin-bottom: 10px;
-}
-</style>
