@@ -43,6 +43,14 @@ const routes = [
         },
     },
     {
+        path: "/product",
+        name: "Product",
+        component: () => import("../views/Product.vue"),
+        meta: {
+            middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
+    {
         path: "/role",
         name: "Role",
         component: () => import("../views/Role.vue"),
