@@ -2,7 +2,7 @@
     <ion-page id="admin-main-content">
         <LayoutAdmin title_page="Product">
             <FilterProduct
-                :filter="filter"
+                :filter="productStore.data.filter"
                 :product_types="productTypeStore.data.product_types"
                 @clearFilter="clearFilter"
             />
@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import { IonPage, IonButton } from "@ionic/vue";
+import { IonPage, IonButton, loadingController } from "@ionic/vue";
 import { useProductStore } from "../stores/products";
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useProductTypeStore } from "../stores/product_types";
 
 import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
@@ -45,23 +45,18 @@ export default {
         const productTypeStore = useProductTypeStore();
         const isModalOpen = ref(false);
 
-        const filter = reactive({
-            name: "",
-            product_type_id: null,
-        });
-
         const params = computed(() => {
             return {
                 include: "product_type,file",
-                name: filter.name,
-                product_type_id: filter.product_type_id,
+                name: productStore.data.filter.name,
+                product_type_id: productStore.data.filter.product_type_id,
                 page: productStore.data.infinite_set.page,
                 per_page: productStore.data.infinite_set.per_page,
             };
         });
 
         watch(
-            () => filter,
+            () => productStore.data.filter,
             () => {
                 loadProducts(1);
             },
@@ -74,13 +69,15 @@ export default {
             await productStore.get(params.value);
         };
 
-        const loadProductTypes = async () => {
-            await productTypeStore.get();
-        };
-
-        onMounted(() => {
-            loadProducts();
-            loadProductTypes();
+        onMounted(async () => {
+            try {
+                await productStore.get(params.value);
+                await productTypeStore.get();
+            } catch (error) {
+                console.log(error);
+            } finally {
+                await loadingController.dismiss();
+            }
         });
 
         const openModal = () => {
@@ -89,8 +86,7 @@ export default {
 
         const closeModal = () => {
             isModalOpen.value = false;
-
-            loadProducts(1);
+            productStore.clear();
         };
 
         const handleEdit = async (id) => {
@@ -113,14 +109,13 @@ export default {
         };
 
         const clearFilter = () => {
-            filter.name = "";
-            filter.product_type_id = null;
+            productStore.data.filter.name = "";
+            productStore.data.filter.product_type_id = null;
         };
 
         return {
             productStore,
             productTypeStore,
-            filter,
             isModalOpen,
             openModal,
             closeModal,

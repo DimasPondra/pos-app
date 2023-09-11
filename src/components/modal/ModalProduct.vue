@@ -109,6 +109,7 @@ import {
 } from "@ionic/vue";
 import { useProductStore } from "../../stores/products";
 import { useFileStore } from "../../stores/files";
+import { computed } from "vue";
 
 export default {
     components: {
@@ -138,12 +139,24 @@ export default {
         const productStore = useProductStore();
         const fileStore = useFileStore();
 
+        const params = computed(() => {
+            return {
+                include: "product_type,file",
+                name: productStore.data.filter.name,
+                product_type_id: productStore.data.filter.product_type_id,
+                page: 1,
+                per_page: productStore.data.infinite_set.per_page,
+            };
+        });
+
         const dismissModal = () => {
             emit("ionModalDidDismiss");
         };
 
         const handleSubmit = async () => {
             await productStore.save(productStore.data.product, productStore.data.product.id);
+
+            await productStore.get(params.value);
 
             dismissModal();
         };

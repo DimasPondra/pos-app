@@ -4,6 +4,7 @@ import { useAuthStore } from "./auth";
 import axios from "axios";
 import { useAlertStore } from "./alerts";
 import { useFileStore } from "./files";
+import { useLoadingStore } from "./loading";
 
 export const useProductStore = defineStore("product", () => {
     const data = reactive({
@@ -25,16 +26,23 @@ export const useProductStore = defineStore("product", () => {
             per_page: 5,
             total: 0,
         },
+        filter: {
+            name: "",
+            product_type_id: null,
+        },
     });
 
     const authStore = useAuthStore();
     const alertStore = useAlertStore();
     const fileStore = useFileStore();
+    const loadingStore = useLoadingStore();
 
     const get = async (params, load = false) => {
         clear();
 
         try {
+            loadingStore.show();
+
             const res = await axios.get("admin/products", {
                 params: params,
                 headers: {
@@ -55,6 +63,8 @@ export const useProductStore = defineStore("product", () => {
             }
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
@@ -62,6 +72,8 @@ export const useProductStore = defineStore("product", () => {
         clear();
 
         try {
+            loadingStore.show();
+
             const res = await axios.get(`admin/products/${id}/show`, {
                 params: params,
                 headers: {
@@ -75,11 +87,15 @@ export const useProductStore = defineStore("product", () => {
             data.product.file_id = res.data.data.file == null ? null : res.data.data.file.id;
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
     const save = async (value, id) => {
         try {
+            loadingStore.show();
+
             if (id == null) {
                 await axios.post("admin/products/store", value, {
                     headers: {
@@ -102,11 +118,15 @@ export const useProductStore = defineStore("product", () => {
             fileStore.clearFile();
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
     const deleteItem = async (id) => {
         try {
+            loadingStore.show();
+
             await axios.delete(`admin/products/${id}/delete`, {
                 headers: {
                     Authorization: authStore.token,
@@ -116,6 +136,8 @@ export const useProductStore = defineStore("product", () => {
             alertStore.handleSuccess("successfully deleted.");
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
@@ -132,5 +154,5 @@ export const useProductStore = defineStore("product", () => {
         data.product.file = {};
     };
 
-    return { data, get, show, save, deleteItem };
+    return { data, get, show, save, deleteItem, clear };
 });
