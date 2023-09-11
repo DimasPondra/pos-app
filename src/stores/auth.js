@@ -4,15 +4,19 @@ import { ref } from "vue";
 import router from "../router";
 import { Preferences } from "@capacitor/preferences";
 import { useAlertStore } from "./alerts";
+import { useLoadingStore } from "./loading";
 
 export const useAuthStore = defineStore("auth", () => {
     let token = ref(null);
     let ability = ref(null);
 
     const alertStore = useAlertStore();
+    const loadingStore = useLoadingStore();
 
     const login = async (user) => {
         try {
+            loadingStore.show();
+
             const res = await axios.post("auth/login", user);
 
             token.value = "Bearer " + res.data.access_token;
@@ -26,11 +30,15 @@ export const useAuthStore = defineStore("auth", () => {
             }
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
     const logout = async () => {
         try {
+            loadingStore.show();
+
             await axios.post("auth/logout", null, {
                 headers: {
                     Authorization: token.value,
@@ -44,6 +52,8 @@ export const useAuthStore = defineStore("auth", () => {
             router.push("login");
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
