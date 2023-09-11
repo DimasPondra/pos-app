@@ -3,6 +3,7 @@ import { useAuthStore } from "./auth";
 import { reactive } from "vue";
 import axios from "axios";
 import { useAlertStore } from "./alerts";
+import { useLoadingStore } from "./loading";
 
 export const useRoleStore = defineStore("role", () => {
     const data = reactive({
@@ -16,15 +17,21 @@ export const useRoleStore = defineStore("role", () => {
             per_page: 5,
             total: 0,
         },
+        filter: {
+            name: "",
+        },
     });
 
     const authStore = useAuthStore();
     const alertStore = useAlertStore();
+    const loadingStore = useLoadingStore();
 
     const get = async (params, load = false) => {
         clear();
 
         try {
+            loadingStore.show();
+
             const res = await axios.get("admin/roles", {
                 params: params,
                 headers: {
@@ -45,6 +52,8 @@ export const useRoleStore = defineStore("role", () => {
             }
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
@@ -52,6 +61,8 @@ export const useRoleStore = defineStore("role", () => {
         clear();
 
         try {
+            loadingStore.show();
+
             const res = await axios.get(`admin/roles/${id}/show`, {
                 headers: {
                     Authorization: authStore.token,
@@ -61,11 +72,15 @@ export const useRoleStore = defineStore("role", () => {
             data.role = res.data.data;
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
     const save = async (value, id) => {
         try {
+            loadingStore.show();
+
             if (id == null) {
                 await axios.post("admin/roles/store", value, {
                     headers: {
@@ -87,11 +102,15 @@ export const useRoleStore = defineStore("role", () => {
             clear();
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
     const deleteItem = async (id) => {
         try {
+            loadingStore.show();
+
             await axios.delete(`admin/roles/${id}/delete`, {
                 headers: {
                     Authorization: authStore.token,
@@ -101,6 +120,8 @@ export const useRoleStore = defineStore("role", () => {
             alertStore.handleSuccess("successfully deleted.");
         } catch (error) {
             alertStore.handleError(error);
+        } finally {
+            loadingStore.hide();
         }
     };
 
@@ -109,5 +130,5 @@ export const useRoleStore = defineStore("role", () => {
         data.role.name = "";
     };
 
-    return { data, get, show, save, deleteItem };
+    return { data, get, show, save, deleteItem, clear };
 });

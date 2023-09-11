@@ -18,7 +18,7 @@ export const useProductTypeStore = defineStore("product_type", () => {
             total: 0,
         },
         filter: {
-            name: null,
+            name: "",
         },
     });
 

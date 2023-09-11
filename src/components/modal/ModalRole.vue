@@ -44,6 +44,7 @@ import {
     IonCardContent,
 } from "@ionic/vue";
 import { useRoleStore } from "../../stores/roles";
+import { computed } from "vue";
 
 export default {
     components: {
@@ -64,12 +65,22 @@ export default {
     setup(props, { emit }) {
         const roleStore = useRoleStore();
 
+        const params = computed(() => {
+            return {
+                name: roleStore.data.filter.name,
+                page: 1,
+                per_page: roleStore.data.infinite_set.per_page,
+            };
+        });
+
         const dismissModal = () => {
             emit("ionModalDidDismiss");
         };
 
         const handleSubmit = async () => {
             await roleStore.save(roleStore.data.role, roleStore.data.role.id);
+
+            await roleStore.get(params.value);
 
             dismissModal();
         };

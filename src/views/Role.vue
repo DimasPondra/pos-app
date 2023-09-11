@@ -1,7 +1,7 @@
 <template>
     <ion-page id="admin-main-content">
         <LayoutAdmin title_page="Role">
-            <FilterRole :filter="filter" @clearFilter="clearFilter" />
+            <FilterRole :filter="roleStore.data.filter" @clearFilter="clearFilter" />
 
             <div class="add-button">
                 <ion-button size="small" fill="outline" expand="block" @click="openModal"> add new </ion-button>
@@ -22,7 +22,7 @@
 <script>
 import { IonPage, IonButton } from "@ionic/vue";
 import { useRoleStore } from "../stores/roles";
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
 import ListRole from "../components/list/ListRole.vue";
@@ -35,20 +35,16 @@ export default {
         const roleStore = useRoleStore();
         const isModalOpen = ref(false);
 
-        const filter = reactive({
-            name: "",
-        });
-
         const params = computed(() => {
             return {
-                name: filter.name,
+                name: roleStore.data.filter.name,
                 page: roleStore.data.infinite_set.page,
                 per_page: roleStore.data.infinite_set.per_page,
             };
         });
 
         watch(
-            () => filter.name,
+            () => roleStore.data.filter.name,
             () => {
                 loadRoles(1);
             }
@@ -71,7 +67,7 @@ export default {
         const closeModal = () => {
             isModalOpen.value = false;
 
-            loadRoles(1);
+            roleStore.clear();
         };
 
         const handleEdit = async (id) => {
@@ -93,12 +89,11 @@ export default {
         };
 
         const clearFilter = () => {
-            filter.name = "";
+            roleStore.data.filter.name = "";
         };
 
         return {
             roleStore,
-            filter,
             isModalOpen,
             openModal,
             closeModal,
