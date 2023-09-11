@@ -91,4 +91,11 @@
 .thumbnail {
   margin-bottom: 10px;
 }
+
+/* Loading */
+.loading {
+  --background: #e3edff;
+  --spinner-color: #1c6dff;
+  color: #1c6dff;
+}
 /*# sourceMappingURL=main.css.map */

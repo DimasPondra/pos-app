@@ -1,7 +1,7 @@
 <template>
     <ion-page id="admin-main-content">
         <LayoutAdmin title_page="Product Type">
-            <FilterProductType :filter="filter" @clearFilter="clearFilter" />
+            <FilterProductType :filter="productTypeStore.data.filter" @clearFilter="clearFilter" />
 
             <div class="add-button">
                 <ion-button size="small" fill="outline" expand="block" @click="openModal"> add new </ion-button>
@@ -22,7 +22,7 @@
 <script>
 import { IonPage, IonButton, IonInput } from "@ionic/vue";
 import { useProductTypeStore } from "../stores/product_types";
-import { onMounted, ref, computed, reactive, watch } from "vue";
+import { onMounted, ref, computed, watch } from "vue";
 
 import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
 import ListProductType from "../components/list/ListProductType.vue";
@@ -43,20 +43,16 @@ export default {
         const productTypeStore = useProductTypeStore();
         const isModalOpen = ref(false);
 
-        const filter = reactive({
-            name: "",
-        });
-
         const params = computed(() => {
             return {
-                name: filter.name,
+                name: productTypeStore.data.filter.name,
                 page: productTypeStore.data.infinite_set.page,
                 per_page: productTypeStore.data.infinite_set.per_page,
             };
         });
 
         watch(
-            () => filter.name,
+            () => productTypeStore.data.filter.name,
             () => {
                 loadProductTypes(1);
             }
@@ -78,8 +74,7 @@ export default {
 
         const closeModal = () => {
             isModalOpen.value = false;
-
-            loadProductTypes(1);
+            productTypeStore.clear();
         };
 
         const handleEdit = async (id) => {
@@ -102,12 +97,11 @@ export default {
         };
 
         const clearFilter = () => {
-            filter.name = "";
+            productTypeStore.data.filter.name = "";
         };
 
         return {
             productTypeStore,
-            filter,
             isModalOpen,
             openModal,
             closeModal,

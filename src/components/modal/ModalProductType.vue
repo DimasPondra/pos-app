@@ -44,6 +44,7 @@ import {
     IonCardContent,
 } from "@ionic/vue";
 import { useProductTypeStore } from "../../stores/product_types";
+import { computed } from "vue";
 
 export default {
     components: {
@@ -64,12 +65,22 @@ export default {
     setup(props, { emit }) {
         const productTypeStore = useProductTypeStore();
 
+        const params = computed(() => {
+            return {
+                name: productTypeStore.data.filter.name,
+                page: 1,
+                per_page: productTypeStore.data.infinite_set.per_page,
+            };
+        });
+
         const dismissModal = () => {
             emit("ionModalDidDismiss");
         };
 
         const handleSubmit = async () => {
             await productTypeStore.save(productTypeStore.data.product_type, productTypeStore.data.product_type.id);
+
+            await productTypeStore.get(params.value);
 
             dismissModal();
         };
