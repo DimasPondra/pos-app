@@ -1,7 +1,7 @@
 <template>
     <ion-page id="admin-main-content">
         <LayoutAdmin title_page="User">
-            <FilterUser :filter="filter" :roles="roleStore.data.roles" @clearFilter="clearFilter" />
+            <FilterUser :filter="userStore.data.filter" :roles="roleStore.data.roles" @clearFilter="clearFilter" />
 
             <div class="add-button">
                 <ion-button size="small" fill="outline" expand="block" @click="openModal">add new</ion-button>
@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import { IonPage, IonButton } from "@ionic/vue";
+import { IonPage, IonButton, loadingController } from "@ionic/vue";
 import { useUserStore } from "../stores/users";
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRoleStore } from "../stores/roles";
 
 import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
@@ -36,23 +36,18 @@ export default {
         const roleStore = useRoleStore();
         const isModalOpen = ref(false);
 
-        const filter = reactive({
-            username: "",
-            role_id: null,
-        });
-
         const params = computed(() => {
             return {
                 include: "role,file",
-                username: filter.username,
-                role_id: filter.role_id,
+                username: userStore.data.filter.username,
+                role_id: userStore.data.filter.role_id,
                 page: userStore.data.infinite_set.page,
                 per_page: userStore.data.infinite_set.per_page,
             };
         });
 
         watch(
-            () => filter,
+            () => userStore.data.filter,
             () => {
                 loadUsers(1);
             },
@@ -65,13 +60,15 @@ export default {
             await userStore.get(params.value);
         };
 
-        const loadRoles = async () => {
-            await roleStore.get();
-        };
-
-        onMounted(() => {
-            loadUsers();
-            loadRoles();
+        onMounted(async () => {
+            try {
+                await userStore.get(params.value);
+                await roleStore.get();
+            } catch (error) {
+                console.log(error);
+            } finally {
+                await loadingController.dismiss();
+            }
         });
 
         const openModal = () => {
@@ -80,8 +77,7 @@ export default {
 
         const closeModal = () => {
             isModalOpen.value = false;
-
-            loadUsers(1);
+            userStore.clear();
         };
 
         const handleEdit = async (id) => {
@@ -97,14 +93,13 @@ export default {
         };
 
         const clearFilter = () => {
-            filter.username = "";
-            filter.role_id = null;
+            userStore.data.filter.username = "";
+            userStore.data.filter.role_id = null;
         };
 
         return {
             userStore,
             roleStore,
-            filter,
             isModalOpen,
             openModal,
             closeModal,

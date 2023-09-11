@@ -88,6 +88,7 @@ import {
 } from "@ionic/vue";
 import { useUserStore } from "../../stores/users";
 import { useFileStore } from "../../stores/files";
+import { computed } from "vue";
 
 export default {
     components: {
@@ -116,12 +117,24 @@ export default {
         const userStore = useUserStore();
         const fileStore = useFileStore();
 
+        const params = computed(() => {
+            return {
+                include: "role,file",
+                username: userStore.data.filter.username,
+                role_id: userStore.data.filter.role_id,
+                page: 1,
+                per_page: userStore.data.infinite_set.per_page,
+            };
+        });
+
         const dismissModal = () => {
             emit("ionModalDidDismiss");
         };
 
         const handleSubmit = async () => {
             await userStore.save(userStore.data.user, userStore.data.user.id);
+
+            await userStore.get(params.value);
 
             dismissModal();
         };
