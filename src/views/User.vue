@@ -14,6 +14,8 @@
                 :total="userStore.data.infinite_set.total"
                 @handleLoadMore="handleLoadMore"
             />
+
+            <RefresherComponent @handleRefresh="refresh" />
         </LayoutAdmin>
     </ion-page>
 </template>
@@ -28,9 +30,10 @@ import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
 import ListUser from "../components/list/ListUser.vue";
 import FilterUser from "../components/filter/FilterUser.vue";
 import ModalUser from "../components/modal/ModalUser.vue";
+import RefresherComponent from "../components/RefresherComponent.vue";
 
 export default {
-    components: { LayoutAdmin, IonPage, IonButton, ListUser, FilterUser, ModalUser },
+    components: { LayoutAdmin, IonPage, IonButton, ListUser, FilterUser, ModalUser, RefresherComponent },
     setup() {
         const userStore = useUserStore();
         const roleStore = useRoleStore();
@@ -97,6 +100,19 @@ export default {
             userStore.data.filter.role_id = null;
         };
 
+        const refresh = async (event) => {
+            params.value.page = 1;
+
+            try {
+                await userStore.get(params.value);
+                await roleStore.get();
+            } catch (error) {
+                console.log(error);
+            } finally {
+                event.target.complete();
+            }
+        };
+
         return {
             userStore,
             roleStore,
@@ -106,6 +122,7 @@ export default {
             handleEdit,
             handleLoadMore,
             clearFilter,
+            refresh,
         };
     },
 };

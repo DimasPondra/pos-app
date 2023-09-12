@@ -15,6 +15,8 @@
                 :total="productTypeStore.data.infinite_set.total"
                 @handleLoadMore="handleLoadMore"
             />
+
+            <RefresherComponent @handleRefresh="refresh" />
         </LayoutAdmin>
     </ion-page>
 </template>
@@ -28,6 +30,7 @@ import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
 import ListProductType from "../components/list/ListProductType.vue";
 import FilterProductType from "../components/filter/FilterProductType.vue";
 import ModalProductType from "../components/modal/ModalProductType.vue";
+import RefresherComponent from "../components/RefresherComponent.vue";
 
 export default {
     components: {
@@ -38,6 +41,7 @@ export default {
         ListProductType,
         ModalProductType,
         FilterProductType,
+        RefresherComponent,
     },
     setup() {
         const productTypeStore = useProductTypeStore();
@@ -100,6 +104,11 @@ export default {
             productTypeStore.data.filter.name = "";
         };
 
+        const refresh = (event) => {
+            loadProductTypes(1);
+            event.target.complete();
+        };
+
         return {
             productTypeStore,
             isModalOpen,
@@ -109,6 +118,7 @@ export default {
             handleDelete,
             handleLoadMore,
             clearFilter,
+            refresh,
         };
     },
 };

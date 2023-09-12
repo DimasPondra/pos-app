@@ -23,6 +23,8 @@
                 @handleDelete="handleDelete"
                 @handleLoadMore="handleLoadMore"
             />
+
+            <RefresherComponent @handleRefresh="refresh" />
         </LayoutAdmin>
     </ion-page>
 </template>
@@ -37,9 +39,10 @@ import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
 import ListProduct from "../components/list/ListProduct.vue";
 import FilterProduct from "../components/filter/FilterProduct.vue";
 import ModalProduct from "../components/modal/ModalProduct.vue";
+import RefresherComponent from "../components/RefresherComponent.vue";
 
 export default {
-    components: { IonPage, IonButton, LayoutAdmin, FilterProduct, ListProduct, ModalProduct },
+    components: { IonPage, IonButton, LayoutAdmin, FilterProduct, ListProduct, ModalProduct, RefresherComponent },
     setup() {
         const productStore = useProductStore();
         const productTypeStore = useProductTypeStore();
@@ -113,6 +116,19 @@ export default {
             productStore.data.filter.product_type_id = null;
         };
 
+        const refresh = async (event) => {
+            params.value.page = 1;
+
+            try {
+                await productStore.get(params.value);
+                await productTypeStore.get();
+            } catch (error) {
+                console.log(error);
+            } finally {
+                event.target.complete();
+            }
+        };
+
         return {
             productStore,
             productTypeStore,
@@ -123,6 +139,7 @@ export default {
             handleDelete,
             handleLoadMore,
             clearFilter,
+            refresh,
         };
     },
 };

@@ -15,6 +15,8 @@
                 :total="roleStore.data.infinite_set.total"
                 @handleLoadMore="handleLoadMore"
             />
+
+            <RefresherComponent @handleRefresh="refresh" />
         </LayoutAdmin>
     </ion-page>
 </template>
@@ -28,9 +30,10 @@ import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
 import ListRole from "../components/list/ListRole.vue";
 import FilterRole from "../components/filter/FilterRole.vue";
 import ModalRole from "../components/modal/ModalRole.vue";
+import RefresherComponent from "../components/RefresherComponent.vue";
 
 export default {
-    components: { LayoutAdmin, IonPage, IonButton, ListRole, FilterRole, ModalRole },
+    components: { LayoutAdmin, IonPage, IonButton, ListRole, FilterRole, ModalRole, RefresherComponent },
     setup() {
         const roleStore = useRoleStore();
         const isModalOpen = ref(false);
@@ -92,6 +95,11 @@ export default {
             roleStore.data.filter.name = "";
         };
 
+        const refresh = (event) => {
+            loadRoles(1);
+            event.target.complete();
+        };
+
         return {
             roleStore,
             isModalOpen,
@@ -101,6 +109,7 @@ export default {
             handleDelete,
             handleLoadMore,
             clearFilter,
+            refresh,
         };
     },
 };
