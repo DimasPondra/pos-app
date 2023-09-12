@@ -42,6 +42,7 @@ import {
     IonButton,
     IonCard,
     IonCardContent,
+    alertController,
 } from "@ionic/vue";
 import { computed } from "vue";
 
@@ -81,8 +82,27 @@ export default {
             context.emit("handleEdit", id);
         };
 
-        const handleDelete = (id) => {
-            context.emit("handleDelete", id);
+        const handleDelete = async (id) => {
+            const alert = await alertController.create({
+                header: "Are you sure?",
+                message: "you won't be able to revert this!",
+                backdropDismiss: false,
+                buttons: [
+                    {
+                        text: "Cancel",
+                        role: "cancel",
+                    },
+                    {
+                        text: "OK",
+                        role: "confirm",
+                        handler: () => {
+                            context.emit("handleDelete", id);
+                        },
+                    },
+                ],
+            });
+
+            await alert.present();
         };
 
         return { totalItems, handleLoadMore, handleEdit, handleDelete };
