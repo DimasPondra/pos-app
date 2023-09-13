@@ -2,13 +2,15 @@
     <ion-card>
         <ion-card-content>
             <ion-list>
-                <ion-item-sliding v-for="user in users" :key="user.id">
+                <ion-item-sliding v-for="user in users" :key="user.id" @ionSwipe="closeOptions">
                     <ion-item>
                         <ion-label>{{ user.username }}</ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(user.id)">Edit</ion-item-option>
+                        <ion-item-option @click="handleEdit(user.id, $event)">
+                            <ion-icon :icon="pencilOutline"></ion-icon>
+                        </ion-item-option>
                     </ion-item-options>
                 </ion-item-sliding>
             </ion-list>
@@ -41,8 +43,10 @@ import {
     IonButton,
     IonCard,
     IonCardContent,
+    IonIcon,
 } from "@ionic/vue";
 import { computed } from "vue";
+import { pencilOutline } from "ionicons/icons";
 
 export default {
     components: {
@@ -55,6 +59,7 @@ export default {
         IonButton,
         IonCard,
         IonCardContent,
+        IonIcon,
     },
     props: {
         users: {
@@ -76,11 +81,20 @@ export default {
             context.emit("handleLoadMore");
         };
 
-        const handleEdit = (id) => {
+        const handleEdit = (id, event) => {
             context.emit("handleEdit", id);
+
+            closeOptions(event);
         };
 
-        return { totalItems, handleLoadMore, handleEdit };
+        const closeOptions = (event) => {
+            const item = event.target.closest("ion-item-sliding");
+            if (item) {
+                item.closeOpened();
+            }
+        };
+
+        return { totalItems, handleLoadMore, handleEdit, closeOptions, pencilOutline };
     },
 };
 </script>

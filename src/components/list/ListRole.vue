@@ -2,14 +2,18 @@
     <ion-card>
         <ion-card-content>
             <ion-list>
-                <ion-item-sliding v-for="role in roles" :key="role.id">
+                <ion-item-sliding v-for="role in roles" :key="role.id" @ionSwipe="closeOptions">
                     <ion-item>
                         <ion-label>{{ role.name }}</ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(role.id)">Edit</ion-item-option>
-                        <ion-item-option @click="handleDelete(role.id)" color="danger">Delete</ion-item-option>
+                        <ion-item-option @click="handleEdit(role.id, $event)">
+                            <ion-icon :icon="pencilOutline"></ion-icon>
+                        </ion-item-option>
+                        <ion-item-option @click="handleDelete(role.id, $event)" color="danger">
+                            <ion-icon :icon="trashOutline"></ion-icon>
+                        </ion-item-option>
                     </ion-item-options>
                 </ion-item-sliding>
             </ion-list>
@@ -43,8 +47,10 @@ import {
     IonCard,
     IonCardContent,
     alertController,
+    IonIcon,
 } from "@ionic/vue";
 import { computed } from "vue";
+import { pencilOutline, trashOutline } from "ionicons/icons";
 
 export default {
     components: {
@@ -57,6 +63,7 @@ export default {
         IonButton,
         IonCard,
         IonCardContent,
+        IonIcon,
     },
     props: {
         roles: {
@@ -78,11 +85,13 @@ export default {
             context.emit("handleLoadMore");
         };
 
-        const handleEdit = (id) => {
+        const handleEdit = (id, event) => {
             context.emit("handleEdit", id);
+
+            closeOptions(event);
         };
 
-        const handleDelete = async (id) => {
+        const handleDelete = async (id, event) => {
             const alert = await alertController.create({
                 header: "Are you sure?",
                 message: "you won't be able to revert this!",
@@ -103,9 +112,18 @@ export default {
             });
 
             await alert.present();
+
+            closeOptions(event);
         };
 
-        return { totalItems, handleLoadMore, handleEdit, handleDelete };
+        const closeOptions = (event) => {
+            const item = event.target.closest("ion-item-sliding");
+            if (item) {
+                item.closeOpened();
+            }
+        };
+
+        return { totalItems, handleLoadMore, handleEdit, handleDelete, closeOptions, pencilOutline, trashOutline };
     },
 };
 </script>
