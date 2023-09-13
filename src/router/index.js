@@ -74,6 +74,14 @@ const routes = [
             middleware: [AuthMiddleware, AdminMiddleware],
         },
     },
+    {
+        path: "/salary",
+        name: "Salary",
+        component: () => import("../views/Salary.vue"),
+        meta: {
+            middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
 ];
 
 const router = createRouter({
