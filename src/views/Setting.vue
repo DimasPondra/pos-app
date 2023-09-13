@@ -10,6 +10,9 @@
             <ion-card router-link="/product">
                 <ion-card-content>Product</ion-card-content>
             </ion-card>
+            <ion-card router-link="/seller">
+                <ion-card-content>Seller</ion-card-content>
+            </ion-card>
             <ion-card router-link="/role">
                 <ion-card-content>Role</ion-card-content>
             </ion-card>
