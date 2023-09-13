@@ -30,7 +30,7 @@ import "./theme/variables.css";
 /** Custom CSS */
 import "./assets/css/main.css";
 
-import { Field, Form, ErrorMessage, defineRule, configure } from "vee-validate";
+import { Field, Form, ErrorMessage, defineRule } from "vee-validate";
 import rules from "@vee-validate/rules";
 import "./custom-message";
 

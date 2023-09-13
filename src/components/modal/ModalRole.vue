@@ -28,7 +28,9 @@
                                     v-model="roleStore.data.role.name"
                                 />
                             </Field>
-                            <ErrorMessage name="name" />
+                            <ErrorMessage as="div" class="error-message" name="name" v-slot="{ message }">
+                                <span>{{ message }}</span>
+                            </ErrorMessage>
                         </div>
 
                         <div class="button-form">

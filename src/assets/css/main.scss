@@ -1,3 +1,10 @@
+// @import url("https://fonts.googleapis.com/css2?family=Poppins");
+
+// html,
+// body {
+//     font-family: "Poppins", sans-serif !important;
+// }
+
 /* View Page */
 .add-button {
     padding: 0px 10px;
@@ -76,4 +83,13 @@
     --spinner-color: #1c6dff;
 
     color: #1c6dff;
+}
+
+/* Error Message */
+.error-message {
+    span {
+        color: red;
+        font-size: 12px;
+        font-style: italic;
+    }
 }

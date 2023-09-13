@@ -28,7 +28,9 @@
                                     v-model="productStore.data.product.name"
                                 />
                             </Field>
-                            <ErrorMessage name="name" />
+                            <ErrorMessage as="div" class="error-message" name="name" v-slot="{ message }">
+                                <span>{{ message }}</span>
+                            </ErrorMessage>
                         </div>
 
                         <div class="input-group">
@@ -56,7 +58,9 @@
                                     type="number"
                                 />
                             </Field>
-                            <ErrorMessage name="price" />
+                            <ErrorMessage as="div" class="error-message" name="price" v-slot="{ message }">
+                                <span>{{ message }}</span>
+                            </ErrorMessage>
                         </div>
 
                         <div class="input-group">
@@ -75,7 +79,9 @@
                                     type="number"
                                 />
                             </Field>
-                            <ErrorMessage name="amount" />
+                            <ErrorMessage as="div" class="error-message" name="amount" v-slot="{ message }">
+                                <span>{{ message }}</span>
+                            </ErrorMessage>
                         </div>
 
                         <div class="input-group">
@@ -100,7 +106,9 @@
                                     >
                                 </ion-select>
                             </Field>
-                            <ErrorMessage name="product_type" />
+                            <ErrorMessage as="div" class="error-message" name="product_type" v-slot="{ message }">
+                                <span>{{ message }}</span>
+                            </ErrorMessage>
                         </div>
 
                         <div class="input-group">

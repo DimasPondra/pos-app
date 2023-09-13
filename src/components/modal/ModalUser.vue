@@ -28,7 +28,9 @@
                                     v-model="userStore.data.user.username"
                                 />
                             </Field>
-                            <ErrorMessage name="username" />
+                            <ErrorMessage as="div" class="error-message" name="username" v-slot="{ message }">
+                                <span>{{ message }}</span>
+                            </ErrorMessage>
                         </div>
 
                         <div class="input-group">
@@ -47,7 +49,9 @@
                                     type="password"
                                 />
                             </Field>
-                            <ErrorMessage name="password" />
+                            <ErrorMessage as="div" class="error-message" name="password" v-slot="{ message }">
+                                <span>{{ message }}</span>
+                            </ErrorMessage>
                         </div>
 
                         <div class="input-group" v-show="userStore.data.user.id == null">
@@ -69,7 +73,9 @@
                                     }}</ion-select-option>
                                 </ion-select>
                             </Field>
-                            <ErrorMessage name="role" />
+                            <ErrorMessage as="div" class="error-message" name="role" v-slot="{ message }">
+                                <span>{{ message }}</span>
+                            </ErrorMessage>
                         </div>
 
                         <div class="input-group" v-show="userStore.data.user.id == null">

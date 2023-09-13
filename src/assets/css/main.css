@@ -98,4 +98,11 @@
   --spinner-color: #1c6dff;
   color: #1c6dff;
 }
+
+/* Error Message */
+.error-message span {
+  color: red;
+  font-size: 12px;
+  font-style: italic;
+}
 /*# sourceMappingURL=main.css.map */
