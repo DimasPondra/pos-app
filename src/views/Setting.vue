@@ -25,6 +25,9 @@
             <ion-card router-link="/unit-type">
                 <ion-card-content>Unit Type</ion-card-content>
             </ion-card>
+            <ion-card router-link="/payroll-setting">
+                <ion-card-content>Payroll Setting</ion-card-content>
+            </ion-card>
             <ion-card @click="handleLogout">
                 <ion-card-content>Logout</ion-card-content>
             </ion-card>

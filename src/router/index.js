@@ -90,6 +90,14 @@ const routes = [
             middleware: [AuthMiddleware, AdminMiddleware],
         },
     },
+    {
+        path: "/payroll-setting",
+        name: "Payroll Setting",
+        component: () => import("../views/PayrollSetting.vue"),
+        meta: {
+            middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
 ];
 
 const router = createRouter({
