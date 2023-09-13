@@ -30,7 +30,14 @@ import "./theme/variables.css";
 /** Custom CSS */
 import "./assets/css/main.css";
 
-import MenuAdmin from "./components/menu/MenuAdmin.vue";
+import { Field, Form, ErrorMessage, defineRule, configure } from "vee-validate";
+import rules from "@vee-validate/rules";
+import "./custom-message";
+
+/* Load Vee Validate rules */
+Object.keys(rules).forEach((rule) => {
+    defineRule(rule, rules[rule]);
+});
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -39,7 +46,9 @@ app.use(IonicVue);
 app.use(router);
 app.use(pinia);
 
-app.component("menu-admin", MenuAdmin);
+app.component("Form", Form);
+app.component("Field", Field);
+app.component("ErrorMessage", ErrorMessage);
 
 router.isReady().then(() => {
     app.mount("#app");

@@ -12,18 +12,29 @@
         <ion-content class="ion-padding">
             <ion-card>
                 <ion-card-content>
-                    <div class="input-group">
-                        <ion-input
-                            label="Name"
-                            label-placement="floating"
-                            placeholder="Enter name"
-                            v-model="roleStore.data.role.name"
-                        ></ion-input>
-                    </div>
+                    <Form @submit="handleSubmit">
+                        <div class="input-group">
+                            <Field
+                                name="name"
+                                rules="required|max:255"
+                                v-slot="{ fieldName }"
+                                v-model="roleStore.data.role.name"
+                            >
+                                <ion-input
+                                    v-bind="fieldName"
+                                    label="Name *"
+                                    label-placement="floating"
+                                    placeholder="Enter name"
+                                    v-model="roleStore.data.role.name"
+                                />
+                            </Field>
+                            <ErrorMessage name="name" />
+                        </div>
 
-                    <div class="button-form">
-                        <ion-button size="small" expand="block" color="success" @click="handleSubmit">Save</ion-button>
-                    </div>
+                        <div class="button-form">
+                            <ion-button type="submit" size="small" expand="block" color="success">Save</ion-button>
+                        </div>
+                    </Form>
                 </ion-card-content>
             </ion-card>
         </ion-content>

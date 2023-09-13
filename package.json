@@ -21,9 +21,12 @@
         "@capacitor/status-bar": "5.0.6",
         "@ionic/vue": "^7.0.0",
         "@ionic/vue-router": "^7.0.0",
+        "@vee-validate/i18n": "^4.11.6",
+        "@vee-validate/rules": "^4.11.6",
         "axios": "^1.4.0",
         "ionicons": "^7.0.0",
         "pinia": "^2.1.6",
+        "vee-validate": "^4.11.6",
         "vue": "^3.2.45",
         "vue-route-middleware": "^1.0.7",
         "vue-router": "^4.1.6"

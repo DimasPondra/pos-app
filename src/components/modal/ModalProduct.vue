@@ -12,78 +12,116 @@
         <ion-content class="ion-padding">
             <ion-card>
                 <ion-card-content>
-                    <div class="input-group">
-                        <ion-input
-                            label="Name"
-                            label-placement="floating"
-                            placeholder="Enter name"
-                            v-model="productStore.data.product.name"
-                        ></ion-input>
-                    </div>
-
-                    <div class="input-group">
-                        <ion-textarea
-                            label="Description"
-                            label-placement="floating"
-                            placeholder="Enter description"
-                            v-model="productStore.data.product.description"
-                        ></ion-textarea>
-                    </div>
-
-                    <div class="input-group">
-                        <ion-input
-                            label="Price"
-                            label-placement="floating"
-                            placeholder="Enter price"
-                            v-model="productStore.data.product.price"
-                            type="number"
-                        ></ion-input>
-                    </div>
-
-                    <div class="input-group">
-                        <ion-input
-                            label="Amount"
-                            label-placement="floating"
-                            placeholder="Enter amount"
-                            v-model="productStore.data.product.amount"
-                            type="number"
-                        ></ion-input>
-                    </div>
-
-                    <div class="input-group">
-                        <ion-select
-                            label="Product Type"
-                            label-placement="floating"
-                            placeholder="Select a Type"
-                            v-model="productStore.data.product.product_type_id"
-                        >
-                            <ion-select-option
-                                v-for="product_type in product_types"
-                                :key="product_type.id"
-                                :value="product_type.id"
-                                >{{ product_type.name }}</ion-select-option
+                    <Form @submit="handleSubmit">
+                        <div class="input-group">
+                            <Field
+                                name="name"
+                                rules="required|max:255"
+                                v-slot="{ fieldName }"
+                                v-model="productStore.data.product.name"
                             >
-                        </ion-select>
-                    </div>
-
-                    <div class="input-group">
-                        <div class="thumbnail" v-if="productStore.data.product.file_id != null">
-                            <ion-thumbnail>
-                                <img :src="productStore.data.product.file.url" alt="Image product." />
-                            </ion-thumbnail>
+                                <ion-input
+                                    v-bind="fieldName"
+                                    label="Name *"
+                                    label-placement="floating"
+                                    placeholder="Enter name"
+                                    v-model="productStore.data.product.name"
+                                />
+                            </Field>
+                            <ErrorMessage name="name" />
                         </div>
 
-                        <div class="file-upload-container">
-                            <label class="file-upload-label">
-                                <input type="file" class="file-upload-input" @change="handleUpload" />
-                                <span class="file-upload-button">Select Image</span>
-                            </label>
+                        <div class="input-group">
+                            <ion-textarea
+                                label="Description"
+                                label-placement="floating"
+                                placeholder="Enter description"
+                                v-model="productStore.data.product.description"
+                            />
                         </div>
-                    </div>
 
-                    <div class="button-form">
-                        <ion-button size="small" expand="block" color="success" @click="handleSubmit">Save</ion-button>
-                    </div>
+                        <div class="input-group">
+                            <Field
+                                name="price"
+                                rules="required|integer|min_value:1"
+                                v-slot="{ fieldPrice }"
+                                v-model="productStore.data.product.price"
+                            >
+                                <ion-input
+                                    v-bind="fieldPrice"
+                                    label="Price *"
+                                    label-placement="floating"
+                                    placeholder="Enter price"
+                                    v-model="productStore.data.product.price"
+                                    type="number"
+                                />
+                            </Field>
+                            <ErrorMessage name="price" />
+                        </div>
+
+                        <div class="input-group">
+                            <Field
+                                name="amount"
+                                rules="required|integer|min_value:1"
+                                v-slot="{ fieldAmount }"
+                                v-model="productStore.data.product.amount"
+                            >
+                                <ion-input
+                                    v-bind="fieldAmount"
+                                    label="Amount *"
+                                    label-placement="floating"
+                                    placeholder="Enter amount"
+                                    v-model="productStore.data.product.amount"
+                                    type="number"
+                                />
+                            </Field>
+                            <ErrorMessage name="amount" />
+                        </div>
+
+                        <div class="input-group">
+                            <Field
+                                name="product_type"
+                                rules="required"
+                                v-slot="{ fieldProductType }"
+                                v-model="productStore.data.product.product_type_id"
+                            >
+                                <ion-select
+                                    v-bind="fieldProductType"
+                                    label="Product Type *"
+                                    label-placement="floating"
+                                    placeholder="Select a Type"
+                                    v-model="productStore.data.product.product_type_id"
+                                >
+                                    <ion-select-option
+                                        v-for="product_type in product_types"
+                                        :key="product_type.id"
+                                        :value="product_type.id"
+                                        >{{ product_type.name }}</ion-select-option
+                                    >
+                                </ion-select>
+                            </Field>
+                            <ErrorMessage name="product_type" />
+                        </div>
+
+                        <div class="input-group">
+                            <div class="thumbnail" v-if="productStore.data.product.file_id != null">
+                                <ion-thumbnail>
+                                    <img :src="productStore.data.product.file.url" alt="Image product." />
+                                </ion-thumbnail>
+                            </div>
+
+                            <div class="file-upload-container">
+                                <label class="file-upload-label">
+                                    <input type="file" class="file-upload-input" @change="handleUpload" />
+                                    <span class="file-upload-button">Select Image</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="button-form">
+                            <ion-button type="submit" size="small" expand="block" color="success">Save</ion-button>
+                        </div>
+                    </Form>
                 </ion-card-content>
             </ion-card>
         </ion-content>

@@ -12,58 +12,85 @@
         <ion-content class="ion-padding">
             <ion-card>
                 <ion-card-content>
-                    <div class="input-group">
-                        <ion-input
-                            v-show="userStore.data.user.id == null"
-                            label="Username"
-                            label-placement="floating"
-                            placeholder="Enter username"
-                            v-model="userStore.data.user.username"
-                        ></ion-input>
-                    </div>
-
-                    <div class="input-group">
-                        <ion-input
-                            label="Password"
-                            label-placement="floating"
-                            placeholder="Enter password"
-                            v-model="userStore.data.user.password"
-                            type="password"
-                        ></ion-input>
-                    </div>
-
-                    <div class="input-group">
-                        <ion-select
-                            v-show="userStore.data.user.id == null"
-                            label="Role"
-                            label-placement="floating"
-                            placeholder="Select a Role"
-                            v-model="userStore.data.user.role_id"
-                        >
-                            <ion-select-option v-for="role in roles" :key="role.id" :value="role.id">{{
-                                role.name
-                            }}</ion-select-option>
-                        </ion-select>
-                    </div>
-
-                    <div class="input-group" v-show="userStore.data.user.id == null">
-                        <div class="thumbnail" v-if="userStore.data.user.file_id != null">
-                            <ion-thumbnail>
-                                <img :src="userStore.data.user.file.url" alt="Image user." />
-                            </ion-thumbnail>
+                    <Form>
+                        <div class="input-group" v-show="userStore.data.user.id == null">
+                            <Field
+                                name="username"
+                                rules="required|max:255"
+                                v-slot="{ fieldUsername }"
+                                v-model="userStore.data.user.username"
+                            >
+                                <ion-input
+                                    v-bind="fieldUsername"
+                                    label="Username *"
+                                    label-placement="floating"
+                                    placeholder="Enter username"
+                                    v-model="userStore.data.user.username"
+                                />
+                            </Field>
+                            <ErrorMessage name="username" />
                         </div>
 
-                        <div class="file-upload-container">
-                            <label class="file-upload-label">
-                                <input type="file" class="file-upload-input" @change="handleUpload" />
-                                <span class="file-upload-button">Select Image</span>
-                            </label>
+                        <div class="input-group">
+                            <Field
+                                name="password"
+                                rules="required|min:6|max:12"
+                                v-slot="{ fieldPassword }"
+                                v-model="userStore.data.user.password"
+                            >
+                                <ion-input
+                                    v-bind="fieldPassword"
+                                    label="Password *"
+                                    label-placement="floating"
+                                    placeholder="Enter password"
+                                    v-model="userStore.data.user.password"
+                                    type="password"
+                                />
+                            </Field>
+                            <ErrorMessage name="password" />
                         </div>
-                    </div>
 
-                    <div class="button-form">
-                        <ion-button size="small" expand="block" color="success" @click="handleSubmit">Save</ion-button>
-                    </div>
+                        <div class="input-group" v-show="userStore.data.user.id == null">
+                            <Field
+                                name="role"
+                                rules="required"
+                                v-slot="{ fieldRole }"
+                                v-model="userStore.data.user.role_id"
+                            >
+                                <ion-select
+                                    v-bind="fieldRole"
+                                    label="Role *"
+                                    label-placement="floating"
+                                    placeholder="Select a Role"
+                                    v-model="userStore.data.user.role_id"
+                                >
+                                    <ion-select-option v-for="role in roles" :key="role.id" :value="role.id">{{
+                                        role.name
+                                    }}</ion-select-option>
+                                </ion-select>
+                            </Field>
+                            <ErrorMessage name="role" />
+                        </div>
+
+                        <div class="input-group" v-show="userStore.data.user.id == null">
+                            <div class="thumbnail" v-if="userStore.data.user.file_id != null">
+                                <ion-thumbnail>
+                                    <img :src="userStore.data.user.file.url" alt="Image user." />
+                                </ion-thumbnail>
+                            </div>
+
+                            <div class="file-upload-container">
+                                <label class="file-upload-label">
+                                    <input type="file" class="file-upload-input" @change="handleUpload" />
+                                    <span class="file-upload-button">Select Image</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="button-form">
+                            <ion-button type="submit" size="small" expand="block" color="success">Save</ion-button>
+                        </div>
+                    </Form>
                 </ion-card-content>
             </ion-card>
         </ion-content>
