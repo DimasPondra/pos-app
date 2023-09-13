@@ -22,6 +22,9 @@
             <ion-card router-link="/salary">
                 <ion-card-content>Salary</ion-card-content>
             </ion-card>
+            <ion-card router-link="/unit-type">
+                <ion-card-content>Unit Type</ion-card-content>
+            </ion-card>
             <ion-card @click="handleLogout">
                 <ion-card-content>Logout</ion-card-content>
             </ion-card>

@@ -82,6 +82,14 @@ const routes = [
             middleware: [AuthMiddleware, AdminMiddleware],
         },
     },
+    {
+        path: "/unit-type",
+        name: "Unit Type",
+        component: () => import("../views/UnitType.vue"),
+        meta: {
+            middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
 ];
 
 const router = createRouter({
