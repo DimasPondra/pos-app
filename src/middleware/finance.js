@@ -3,8 +3,8 @@ import { useAuthStore } from "../stores/auth";
 export default (to, from, next) => {
     let authStore = useAuthStore();
 
-    if (authStore.ability == "finance") {
-        next({ name: "Purchase" });
+    if (authStore.ability == "admin") {
+        next({ name: "Home" });
         return false;
     } else if (authStore.ability != "admin" && authStore.ability != "finance") {
         authStore.$reset();

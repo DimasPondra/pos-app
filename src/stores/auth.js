@@ -27,6 +27,8 @@ export const useAuthStore = defineStore("auth", () => {
 
             if (ability.value == "admin") {
                 router.push("/");
+            } else if (ability.value == "finance") {
+                router.push("/purchase");
             }
         } catch (error) {
             alertStore.handleError(error);

@@ -4,6 +4,7 @@ import VueRouteMiddleware from "vue-route-middleware";
 import AuthMiddleware from "../middleware/auth";
 import AdminMiddleware from "../middleware/admin";
 import GuestMiddleware from "../middleware/guest";
+import FinanceMiddleware from "../middleware/finance";
 
 const routes = [
     {
@@ -96,6 +97,14 @@ const routes = [
         component: () => import("../views/PayrollSetting.vue"),
         meta: {
             middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
+    {
+        path: "/purchase",
+        name: "Purchase",
+        component: () => import("../views/Purchase.vue"),
+        meta: {
+            middleware: [AuthMiddleware, FinanceMiddleware],
         },
     },
 ];
