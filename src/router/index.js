@@ -32,7 +32,7 @@ const routes = [
         name: "Setting",
         component: () => import("../views/Setting.vue"),
         meta: {
-            middleware: [AuthMiddleware, AdminMiddleware],
+            middleware: [AuthMiddleware],
         },
     },
     {
@@ -103,6 +103,14 @@ const routes = [
         path: "/purchase",
         name: "Purchase",
         component: () => import("../views/Purchase.vue"),
+        meta: {
+            middleware: [AuthMiddleware, FinanceMiddleware],
+        },
+    },
+    {
+        path: "/payroll",
+        name: "Payroll",
+        component: () => import("../views/Payroll.vue"),
         meta: {
             middleware: [AuthMiddleware, FinanceMiddleware],
         },

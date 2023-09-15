@@ -12,7 +12,7 @@
         <ion-content class="ion-padding">
             <ion-card>
                 <ion-card-content>
-                    <Form>
+                    <Form @submit="handleSubmit">
                         <div class="input-group" v-show="userStore.data.user.id == null">
                             <Field
                                 name="username"
