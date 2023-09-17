@@ -4,7 +4,9 @@
             <FilterUnitType :filter="unitTypeStore.data.filter" @clearFilter="clearFilter" />
 
             <div class="add-button">
-                <ion-button size="small" fill="outline" expand="block" @click="openModal"> add new </ion-button>
+                <ion-button size="small" color="warning" fill="outline" expand="block" @click="openModal">
+                    add new
+                </ion-button>
             </div>
             <ModalUnitType :is-open="isModalOpen" @ionModalDidDismiss="closeModal" />
 

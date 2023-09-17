@@ -2,7 +2,9 @@
     <ion-page id="admin-main-content">
         <LayoutAdmin title_page="Purchase">
             <div class="add-button">
-                <ion-button size="small" fill="outline" expand="block" @click="openModal">add new</ion-button>
+                <ion-button size="small" color="warning" fill="outline" expand="block" @click="openModal"
+                    >add new</ion-button
+                >
             </div>
             <ModalPurchase
                 :is-open="isModalOpen"

@@ -1,3 +1,29 @@
+:root ion-content {
+  --background: #313866;
+  --color: white;
+}
+
+:root ion-card ion-card-header ion-card-title {
+  --color: #974ec3;
+}
+
+:root ion-input {
+  --highlight-color-focused: #176b87;
+}
+
+:root ion-button {
+  --background: #974ec3;
+}
+
+:root ion-header ion-toolbar ion-title {
+  --color: #974ec3;
+}
+
+:root ion-loading {
+  --background: #313866;
+  --spinner-color: #974ec3;
+}
+
 /* View Page */
 .add-button {
   padding: 0px 10px;
@@ -24,6 +50,12 @@
       -ms-flex-align: center;
           align-items: center;
   padding-top: 10px;
+}
+
+.centered-container ion-button {
+  --background: none;
+  --border-color: #974ec3;
+  --color: #974ec3;
 }
 
 .text-center {
@@ -53,11 +85,11 @@
 .file-upload-container .file-upload-label {
   position: relative;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #974ec3;
   /* Change to your desired background color */
   color: #fff;
   /* Change to your desired text color */
-  border: 2px solid #007bff;
+  border: 2px solid #974ec3;
   /* Change to your desired border color */
   padding: 10px 20px;
   border-radius: 5px;
@@ -68,7 +100,7 @@
 }
 
 .file-upload-container .file-upload-label:hover {
-  background-color: #0056b3;
+  background-color: #ac5fdb;
   /* Change to your desired hover background color */
 }
 
@@ -94,14 +126,14 @@
 
 /* Loading */
 .loading {
-  --background: #e3edff;
-  --spinner-color: #1c6dff;
-  color: #1c6dff;
+  --background: #313866;
+  --spinner-color: #974ec3;
+  color: #974ec3;
 }
 
 /* Error Message */
 .error-message span {
-  color: red;
+  color: #da1212;
   font-size: 12px;
   font-style: italic;
 }

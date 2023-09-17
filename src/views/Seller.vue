@@ -4,7 +4,9 @@
             <FilterSeller :filter="sellerStore.data.filter" @clearFilter="clearFilter" />
 
             <div class="add-button">
-                <ion-button size="small" fill="outline" expand="block" @click="openModal"> add new </ion-button>
+                <ion-button size="small" color="warning" fill="outline" expand="block" @click="openModal">
+                    add new
+                </ion-button>
             </div>
             <ModalSeller :is-open="isModalOpen" @ionModalDidDismiss="closeModal" />
 

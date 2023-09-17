@@ -94,7 +94,7 @@
                         </div>
 
                         <div class="button-form">
-                            <ion-button type="submit" size="small" expand="block" color="success">Save</ion-button>
+                            <ion-button type="submit" size="small" expand="block">Save</ion-button>
                         </div>
                     </Form>
                 </ion-card-content>

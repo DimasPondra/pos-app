@@ -5,6 +5,42 @@
 //     font-family: "Poppins", sans-serif !important;
 // }
 
+:root {
+    ion-content {
+        --background: #313866;
+        --color: white;
+    }
+
+    ion-card {
+        ion-card-header {
+            ion-card-title {
+                --color: #974ec3;
+            }
+        }
+    }
+
+    ion-input {
+        --highlight-color-focused: #176b87;
+    }
+
+    ion-button {
+        --background: #974ec3;
+    }
+
+    ion-header {
+        ion-toolbar {
+            ion-title {
+                --color: #974ec3;
+            }
+        }
+    }
+
+    ion-loading {
+        --background: #313866;
+        --spinner-color: #974ec3;
+    }
+}
+
 /* View Page */
 .add-button {
     padding: 0px 10px;
@@ -25,6 +61,12 @@
     justify-content: center;
     align-items: center;
     padding-top: 10px;
+
+    ion-button {
+        --background: none;
+        --border-color: #974ec3;
+        --color: #974ec3;
+    }
 }
 
 .text-center {
@@ -42,9 +84,9 @@
     .file-upload-label {
         position: relative;
         cursor: pointer;
-        background-color: #007bff; /* Change to your desired background color */
+        background-color: #974ec3; /* Change to your desired background color */
         color: #fff; /* Change to your desired text color */
-        border: 2px solid #007bff; /* Change to your desired border color */
+        border: 2px solid #974ec3; /* Change to your desired border color */
         padding: 10px 20px;
         border-radius: 5px;
         margin-bottom: 20px;
@@ -52,7 +94,7 @@
         transition: background-color 0.3s ease;
 
         &:hover {
-            background-color: #0056b3; /* Change to your desired hover background color */
+            background-color: #ac5fdb; /* Change to your desired hover background color */
         }
 
         .file-upload-input {
@@ -79,16 +121,16 @@
 
 /* Loading */
 .loading {
-    --background: #e3edff;
-    --spinner-color: #1c6dff;
+    --background: #313866;
+    --spinner-color: #974ec3;
 
-    color: #1c6dff;
+    color: #974ec3;
 }
 
 /* Error Message */
 .error-message {
     span {
-        color: red;
+        color: #da1212;
         font-size: 12px;
         font-style: italic;
     }
