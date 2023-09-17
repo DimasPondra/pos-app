@@ -1,9 +1,8 @@
-// @import url("https://fonts.googleapis.com/css2?family=Poppins");
+@import url("https://fonts.googleapis.com/css2?family=Poppins");
 
-// html,
-// body {
-//     font-family: "Poppins", sans-serif !important;
-// }
+body {
+    --ion-font-family: "Poppins", sans-serif;
+}
 
 :root {
     ion-content {
@@ -160,4 +159,11 @@
 
 .margin-bottom-10 {
     margin-bottom: 10px;
+}
+
+.logout {
+    ion-card {
+        --background: #da1212;
+        --color: white;
+    }
 }

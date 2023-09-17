@@ -145,12 +145,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-.logout {
-    ion-card {
-        --background: #da1212;
-        --color: white;
-    }
-}
-</style>
