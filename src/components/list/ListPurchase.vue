@@ -4,11 +4,14 @@
             <ion-list>
                 <ion-item-sliding v-for="purchase in purchases" :key="purchase.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label>{{ purchase.product.name }} - {{ purchase.date }}</ion-label>
+                        <ion-label>
+                            <h3>{{ purchase.product.name }}</h3>
+                            <p>{{ purchase.date }} - Rp {{ purchase.price }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(purchase.id, $event)">
+                        <ion-item-option @click="handleEdit(purchase.id, $event)" color="tertiary">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
                         <ion-item-option @click="handleDelete(purchase.id, $event)" color="danger">

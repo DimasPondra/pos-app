@@ -4,11 +4,14 @@
             <ion-list>
                 <ion-item-sliding v-for="salary in salaries" :key="salary.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label>{{ salary.nominal }}</ion-label>
+                        <ion-label>
+                            <h3>Rp {{ salary.nominal }}</h3>
+                            <p>{{ salary.role.name }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(salary.id, $event)">
+                        <ion-item-option @click="handleEdit(salary.id, $event)" color="tertiary">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
                         <ion-item-option @click="handleDelete(salary.id, $event)" color="danger">

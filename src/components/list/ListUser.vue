@@ -4,11 +4,14 @@
             <ion-list>
                 <ion-item-sliding v-for="user in users" :key="user.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label>{{ user.username }}</ion-label>
+                        <ion-label>
+                            <h3>{{ user.username }}</h3>
+                            <p>{{ user.role.name }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(user.id, $event)">
+                        <ion-item-option @click="handleEdit(user.id, $event)" color="tertiary">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
                     </ion-item-options>

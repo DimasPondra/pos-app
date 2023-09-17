@@ -1,7 +1,7 @@
 <template>
     <ion-page id="admin-main-content">
         <LayoutAdmin title_page="Salary">
-            <div class="add-button">
+            <div class="add-button margin-top-10">
                 <ion-button size="small" color="warning" fill="outline" expand="block" @click="openModal"
                     >add new</ion-button
                 >

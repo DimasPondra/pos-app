@@ -4,11 +4,13 @@
             <ion-list>
                 <ion-item-sliding v-for="unit_type in unit_types" :key="unit_type.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label>{{ unit_type.name }}</ion-label>
+                        <ion-label>
+                            <p>{{ unit_type.name }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(unit_type.id, $event)">
+                        <ion-item-option @click="handleEdit(unit_type.id, $event)" color="tertiary">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
                         <ion-item-option @click="handleDelete(unit_type.id, $event)" color="danger">

@@ -4,11 +4,14 @@
             <ion-list>
                 <ion-item-sliding v-for="transaction in transactions" :key="transaction.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label> {{ transaction.details.length }} item - Rp {{ transaction.total }} </ion-label>
+                        <ion-label>
+                            <h3>{{ transaction.details.length }} item</h3>
+                            <p>Rp {{ transaction.total }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleShow(transaction.id, $event)">
+                        <ion-item-option @click="handleShow(transaction.id, $event)" color="tertiary">
                             <ion-icon :icon="eyeOutline"></ion-icon>
                         </ion-item-option>
                     </ion-item-options>

@@ -1,8 +1,6 @@
 <template>
     <ion-page id="admin-main-content">
-        <LayoutAdmin title_page="Home">
-            <h1>Homepage</h1>
-        </LayoutAdmin>
+        <LayoutAdmin title_page="Home"> </LayoutAdmin>
     </ion-page>
 </template>
 

@@ -8,11 +8,14 @@
                     @ionSwipe="closeOptions"
                 >
                     <ion-item>
-                        <ion-label>{{ payroll_setting.name }}</ion-label>
+                        <ion-label>
+                            <h3>{{ payroll_setting.name }}</h3>
+                            <p>{{ payroll_setting.nominal }} - {{ payroll_setting.unit_type.name }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(payroll_setting.id, $event)">
+                        <ion-item-option @click="handleEdit(payroll_setting.id, $event)" color="tertiary">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
                         <ion-item-option @click="handleDelete(payroll_setting.id, $event)" color="danger">

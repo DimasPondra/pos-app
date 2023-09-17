@@ -4,11 +4,14 @@
             <ion-list>
                 <ion-item-sliding v-for="cart in carts" :key="cart.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label>{{ cart.product.name }} - {{ cart.amount }}</ion-label>
+                        <ion-label>
+                            <h3>{{ cart.product.name }}</h3>
+                            <p>{{ cart.amount }} - Rp {{ cart.product.price }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(cart.id, $event)">
+                        <ion-item-option @click="handleEdit(cart.id, $event)" color="tertiary">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
                         <ion-item-option @click="handleDelete(cart.id, $event)" color="danger">

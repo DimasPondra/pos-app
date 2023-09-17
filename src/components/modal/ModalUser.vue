@@ -9,7 +9,7 @@
                 </ion-buttons>
             </ion-toolbar>
         </ion-header>
-        <ion-content class="ion-padding">
+        <ion-content>
             <ion-card>
                 <ion-card-content>
                     <Form @submit="handleSubmit">

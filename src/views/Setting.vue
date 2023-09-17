@@ -3,59 +3,122 @@
         <LayoutAdmin title_page="">
             <div v-if="authStore.ability == 'admin'">
                 <ion-card router-link="/">
-                    <ion-card-content>Home</ion-card-content>
+                    <ion-card-content>
+                        <ion-label><p>Home</p> </ion-label>
+                    </ion-card-content>
                 </ion-card>
-                <ion-card router-link="/product-type">
-                    <ion-card-content>Product Type</ion-card-content>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle> Product </ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item router-link="/product-type">
+                                <ion-label><p>Product Type</p> </ion-label>
+                            </ion-item>
+                            <ion-item router-link="/product">
+                                <ion-label><p>Product</p> </ion-label>
+                            </ion-item>
+                            <ion-item router-link="/seller">
+                                <ion-label><p>Seller</p> </ion-label>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
                 </ion-card>
-                <ion-card router-link="/product">
-                    <ion-card-content>Product</ion-card-content>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle> User </ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item router-link="/role">
+                                <ion-label><p>Role</p> </ion-label>
+                            </ion-item>
+                            <ion-item router-link="/user">
+                                <ion-label><p>User</p> </ion-label>
+                            </ion-item>
+                            <ion-item router-link="/salary">
+                                <ion-label><p>Salary</p> </ion-label>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
                 </ion-card>
-                <ion-card router-link="/seller">
-                    <ion-card-content>Seller</ion-card-content>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle> Transaction </ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item router-link="/transaction">
+                                <ion-label><p>Transaction</p> </ion-label>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
                 </ion-card>
-                <ion-card router-link="/role">
-                    <ion-card-content>Role</ion-card-content>
-                </ion-card>
-                <ion-card router-link="/user">
-                    <ion-card-content>User</ion-card-content>
-                </ion-card>
-                <ion-card router-link="/salary">
-                    <ion-card-content>Salary</ion-card-content>
-                </ion-card>
-                <ion-card router-link="/unit-type">
-                    <ion-card-content>Unit Type</ion-card-content>
-                </ion-card>
-                <ion-card router-link="/payroll-setting">
-                    <ion-card-content>Payroll Setting</ion-card-content>
-                </ion-card>
-                <ion-card router-link="/transaction">
-                    <ion-card-content>Transaction</ion-card-content>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle> Setting </ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item router-link="/unit-type">
+                                <ion-label><p>Unit Type</p> </ion-label>
+                            </ion-item>
+                            <ion-item router-link="/payroll-setting">
+                                <ion-label><p>Payroll Setting</p> </ion-label>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
                 </ion-card>
             </div>
             <div v-if="authStore.ability == 'finance'">
-                <ion-card router-link="/purchase">
-                    <ion-card-content>Purchase</ion-card-content>
-                </ion-card>
-                <ion-card router-link="/payroll">
-                    <ion-card-content>Payroll</ion-card-content>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle> Finance </ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item router-link="/purchase">
+                                <ion-label><p>Purchase</p> </ion-label>
+                            </ion-item>
+                            <ion-item router-link="/payroll">
+                                <ion-label><p>Payroll</p> </ion-label>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
                 </ion-card>
             </div>
             <div v-if="authStore.ability == 'cashier'">
                 <ion-card router-link="/cart">
-                    <ion-card-content>Cart</ion-card-content>
+                    <ion-card-content>
+                        <ion-label><p>Cart</p> </ion-label>
+                    </ion-card-content>
                 </ion-card>
             </div>
-            <ion-card @click="handleLogout">
-                <ion-card-content>Logout</ion-card-content>
-            </ion-card>
+            <div class="logout">
+                <ion-card @click="handleLogout">
+                    <ion-card-content>
+                        <ion-label>Logout </ion-label>
+                    </ion-card-content>
+                </ion-card>
+            </div>
         </LayoutAdmin>
     </ion-page>
 </template>
 
 <script>
 import LayoutAdmin from "../components/layout/LayoutAdmin.vue";
-import { IonPage, IonButton, IonCard, IonCardContent, IonList, IonItem, IonLabel } from "@ionic/vue";
+import {
+    IonPage,
+    IonButton,
+    IonCard,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardContent,
+    IonList,
+    IonItem,
+    IonLabel,
+} from "@ionic/vue";
 import { useAuthStore } from "../stores/auth";
 
 export default {
@@ -64,6 +127,8 @@ export default {
         IonPage,
         IonButton,
         IonCard,
+        IonCardHeader,
+        IonCardSubtitle,
         IonCardContent,
         IonList,
         IonItem,
@@ -80,3 +145,12 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.logout {
+    ion-card {
+        --background: #da1212;
+        --color: white;
+    }
+}
+</style>

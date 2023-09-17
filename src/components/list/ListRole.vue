@@ -4,11 +4,13 @@
             <ion-list>
                 <ion-item-sliding v-for="role in roles" :key="role.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label>{{ role.name }}</ion-label>
+                        <ion-label>
+                            <p>{{ role.name }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(role.id, $event)">
+                        <ion-item-option @click="handleEdit(role.id, $event)" color="tertiary">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
                         <ion-item-option @click="handleDelete(role.id, $event)" color="danger">

@@ -4,11 +4,13 @@
             <ion-list>
                 <ion-item-sliding v-for="seller in sellers" :key="seller.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label>{{ seller.name }}</ion-label>
+                        <ion-label>
+                            <p>{{ seller.name }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(seller.id, $event)">
+                        <ion-item-option @click="handleEdit(seller.id, $event)" color="tertiary">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
                         <ion-item-option @click="handleDelete(seller.id, $event)" color="danger">

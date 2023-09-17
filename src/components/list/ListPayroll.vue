@@ -4,11 +4,14 @@
             <ion-list>
                 <ion-item-sliding v-for="payroll in payrolls" :key="payroll.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label>{{ payroll.role }} - {{ payroll.user.username }} - {{ payroll.net_pay }}</ion-label>
+                        <ion-label>
+                            <h3>{{ payroll.user.username }}</h3>
+                            <p>{{ payroll.role }} - Rp {{ payroll.net_pay }}</p>
+                        </ion-label>
                     </ion-item>
 
                     <ion-item-options>
-                        <ion-item-option @click="handleEdit(payroll.id, $event)">
+                        <ion-item-option @click="handleEdit(payroll.id, $event)" color="tertiary">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
                     </ion-item-options>

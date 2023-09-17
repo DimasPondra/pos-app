@@ -17,7 +17,7 @@
             <ModalCart :is-open="isModalOpen" @ionModalDidDismiss="closeModal" />
 
             <ListCart :carts="cartStore.data.carts" @handleEdit="handleEdit" @handleDelete="handleDelete" />
-            <div class="add-button" v-if="cartStore.data.carts.length >= 1">
+            <div class="add-button margin-bottom-10" v-if="cartStore.data.carts.length >= 1">
                 <ion-button size="small" color="success" expand="block" @click="handleCheckout">checkout</ion-button>
             </div>
 

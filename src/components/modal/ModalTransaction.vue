@@ -35,10 +35,10 @@
             </ion-card>
 
             <ion-card v-for="detail in transactionStore.data.transaction.details" :key="detail.id">
-                <ion-card-header>
-                    <ion-card-title>{{ detail.product.name }}</ion-card-title>
-                    <ion-card-subtitle>Rp {{ detail.price }} - {{ detail.amount }} item.</ion-card-subtitle>
-                </ion-card-header>
+                <ion-card-content>
+                    <h3>{{ detail.product.name }}</h3>
+                    <p>Rp {{ detail.price }} - {{ detail.amount }} item.</p>
+                </ion-card-content>
             </ion-card>
         </ion-content>
     </ion-modal>
