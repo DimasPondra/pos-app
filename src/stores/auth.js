@@ -29,6 +29,8 @@ export const useAuthStore = defineStore("auth", () => {
                 router.push("/");
             } else if (ability.value == "finance") {
                 router.push("/purchase");
+            } else if (ability.value == "cashier") {
+                router.push("/cart");
             }
         } catch (error) {
             alertStore.handleError(error);

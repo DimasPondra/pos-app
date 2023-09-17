@@ -38,6 +38,11 @@
                     <ion-card-content>Payroll</ion-card-content>
                 </ion-card>
             </div>
+            <div v-if="authStore.ability == 'cashier'">
+                <ion-card router-link="/cart">
+                    <ion-card-content>Cart</ion-card-content>
+                </ion-card>
+            </div>
             <ion-card @click="handleLogout">
                 <ion-card-content>Logout</ion-card-content>
             </ion-card>

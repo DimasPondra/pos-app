@@ -2,40 +2,21 @@
     <ion-card>
         <ion-card-content>
             <ion-list>
-                <ion-item-sliding v-for="product in products" :key="product.id" @ionSwipe="closeOptions">
+                <ion-item-sliding v-for="cart in carts" :key="cart.id" @ionSwipe="closeOptions">
                     <ion-item>
-                        <ion-label>{{ product.name }}</ion-label>
+                        <ion-label>{{ cart.product.name }} - {{ cart.amount }}</ion-label>
                     </ion-item>
 
-                    <ion-item-options v-if="add_cart == false">
-                        <ion-item-option @click="handleEdit(product.id, $event)">
+                    <ion-item-options>
+                        <ion-item-option @click="handleEdit(cart.id, $event)">
                             <ion-icon :icon="pencilOutline"></ion-icon>
                         </ion-item-option>
-                        <ion-item-option @click="handleDelete(product.id, $event)" color="danger">
+                        <ion-item-option @click="handleDelete(cart.id, $event)" color="danger">
                             <ion-icon :icon="trashOutline"></ion-icon>
-                        </ion-item-option>
-                    </ion-item-options>
-                    <ion-item-options v-else>
-                        <ion-item-option @click="handleAddToCart(product.id, $event)">
-                            <ion-icon :icon="addOutline"></ion-icon>
                         </ion-item-option>
                     </ion-item-options>
                 </ion-item-sliding>
             </ion-list>
-
-            <div class="centered-container">
-                <ion-button
-                    shape="round"
-                    fill="outline"
-                    size="small"
-                    v-show="products.length < total"
-                    @click="handleLoadMore"
-                    >load more</ion-button
-                >
-            </div>
-            <div class="text-center">
-                <ion-label>{{ totalItems }}</ion-label>
-            </div>
         </ion-card-content>
     </ion-card>
 </template>
@@ -54,8 +35,7 @@ import {
     alertController,
     IonIcon,
 } from "@ionic/vue";
-import { computed } from "vue";
-import { pencilOutline, trashOutline, addOutline } from "ionicons/icons";
+import { pencilOutline, trashOutline } from "ionicons/icons";
 
 export default {
     components: {
@@ -71,29 +51,13 @@ export default {
         IonIcon,
     },
     props: {
-        products: {
+        carts: {
             type: Array,
             default: [],
         },
-        total: {
-            type: Number,
-            default: "",
-        },
-        add_cart: {
-            type: Boolean,
-            default: false,
-        },
     },
-    emits: ["handleLoadMore", "handleEdit", "handleDelete", "handleAddToCart"],
+    emits: ["handleEdit", "handleDelete"],
     setup(props, context) {
-        const totalItems = computed(() => {
-            return props.products.length + " of " + props.total;
-        });
-
-        const handleLoadMore = () => {
-            context.emit("handleLoadMore");
-        };
-
         const handleEdit = (id, event) => {
             context.emit("handleEdit", id);
 
@@ -132,23 +96,7 @@ export default {
             }
         };
 
-        const handleAddToCart = (id, event) => {
-            context.emit("handleAddToCart", id);
-
-            closeOptions(event);
-        };
-
-        return {
-            totalItems,
-            handleLoadMore,
-            handleEdit,
-            handleDelete,
-            handleAddToCart,
-            closeOptions,
-            pencilOutline,
-            trashOutline,
-            addOutline,
-        };
+        return { handleEdit, handleDelete, closeOptions, pencilOutline, trashOutline };
     },
 };
 </script>

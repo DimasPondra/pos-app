@@ -5,6 +5,7 @@ import AuthMiddleware from "../middleware/auth";
 import AdminMiddleware from "../middleware/admin";
 import GuestMiddleware from "../middleware/guest";
 import FinanceMiddleware from "../middleware/finance";
+import CashierMiddleware from "../middleware/cashier";
 
 const routes = [
     {
@@ -113,6 +114,14 @@ const routes = [
         component: () => import("../views/Payroll.vue"),
         meta: {
             middleware: [AuthMiddleware, FinanceMiddleware],
+        },
+    },
+    {
+        path: "/cart",
+        name: "Cart",
+        component: () => import("../views/Cart.vue"),
+        meta: {
+            middleware: [AuthMiddleware, CashierMiddleware],
         },
     },
 ];
