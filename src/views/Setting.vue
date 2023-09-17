@@ -29,6 +29,9 @@
                 <ion-card router-link="/payroll-setting">
                     <ion-card-content>Payroll Setting</ion-card-content>
                 </ion-card>
+                <ion-card router-link="/transaction">
+                    <ion-card-content>Transaction</ion-card-content>
+                </ion-card>
             </div>
             <div v-if="authStore.ability == 'finance'">
                 <ion-card router-link="/purchase">

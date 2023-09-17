@@ -101,6 +101,14 @@ const routes = [
         },
     },
     {
+        path: "/transaction",
+        name: "Transaction",
+        component: () => import("../views/Transaction.vue"),
+        meta: {
+            middleware: [AuthMiddleware, AdminMiddleware],
+        },
+    },
+    {
         path: "/purchase",
         name: "Purchase",
         component: () => import("../views/Purchase.vue"),
