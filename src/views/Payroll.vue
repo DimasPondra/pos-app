@@ -7,6 +7,9 @@
                 <ion-button size="small" color="warning" fill="outline" expand="block" @click="openModal"
                     >add new</ion-button
                 >
+                <ion-button size="small" color="danger" expand="block" @click="handleGeneratePDF"
+                    >Generate PDF</ion-button
+                >
             </div>
             <ModalPayroll :is-open="isModalOpen" @ionModalDidDismiss="closeModal" :users="userStore.data.users" />
 
@@ -50,6 +53,13 @@ export default {
                 year: payrollStore.data.filter.year,
                 page: payrollStore.data.infinite_set.page,
                 per_page: payrollStore.data.infinite_set.per_page,
+            };
+        });
+
+        const PDFParams = computed(() => {
+            return {
+                month: payrollStore.data.filter.month,
+                year: payrollStore.data.filter.year,
             };
         });
 
@@ -120,6 +130,10 @@ export default {
             }
         };
 
+        const handleGeneratePDF = async () => {
+            await payrollStore.generatePDF(PDFParams.value);
+        };
+
         return {
             payrollStore,
             userStore,
@@ -130,6 +144,7 @@ export default {
             handleLoadMore,
             clearFilter,
             refresh,
+            handleGeneratePDF,
         };
     },
 };
